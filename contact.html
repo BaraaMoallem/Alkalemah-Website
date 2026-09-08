@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>تواصل معنا | نادي الكلمة توستمساترز - AlKalemah Toastmasters Club</title>
+  <meta name="description" content="تواصل مع نادي الكلمة توستمساترز (AlKalemah Toastmasters Club) عبر واتساب مباشرة أو هاتفياً لحجز حضورك كضيف (150 ج.م) أو للاستفسار عن العضوية والاجتماعات باللغة العربية.">
+
+  <!-- Google Fonts -->
+  <!-- Google Fonts: Cairo for Arabic & Montserrat for Headings/Numbers -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Montserrat:wght@500;600;700;800&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'loyal-blue': '#004165',
+            'loyal-blue-dark': '#00273d',
+            'loyal-blue-light': '#e8f2f8',
+            'true-maroon': '#772432',
+            'true-maroon-dark': '#521721',
+            'true-maroon-light': '#faebed',
+            'cool-gray': '#A9B2B1',
+            'cool-gray-light': '#f4f6f6',
+            'happy-yellow': '#F2DF74',
+            'happy-yellow-dark': '#d8c24f',
+          },
+          fontFamily: {
+            cairo: ['Cairo', 'sans-serif'],
+            montserrat: ['Montserrat', 'sans-serif'],
+            sans: ['Cairo', 'Source Sans 3', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: 'Cairo', sans-serif; }
+    .heading-font { font-family: 'Cairo', 'Montserrat', sans-serif; }
+    .en-font { font-family: 'Montserrat', 'Source Sans 3', sans-serif; }
+  </style>
+</head>
+<body class="bg-[#fcfdfd] text-slate-800 antialiased selection:bg-happy-yellow selection:text-loyal-blue flex flex-col min-h-screen">
+
+  <!-- Main Navigation Header -->
+  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md shadow-sm border-b border-slate-200/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        
+        <!-- Logo -->
+        <a href="index.html" class="flex items-center gap-3 group focus:outline-none shrink-0">
+          <img src="/ToastmastersLogo3Color.svg" alt="Toastmasters International Logo" class="w-12 h-12 object-contain transition-transform group-hover:scale-105" />
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="text-xl sm:text-2xl font-black text-loyal-blue heading-font tracking-tight">نادي الكلمة توستمساترز</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Desktop Navigation Links (من نحن، طرق الوصول، العضوية، تواصل معنا) -->
+        <nav class="hidden md:flex items-center gap-1.5 lg:gap-2">
+          <a href="index.html" class="px-3.5 py-2 rounded-lg text-sm font-semibold text-slate-700 hover:text-loyal-blue hover:bg-slate-100 transition-colors">
+            الرئيسية
+          </a>
+          <a href="about.html" class="px-3.5 py-2 rounded-lg text-sm font-semibold text-slate-700 hover:text-loyal-blue hover:bg-slate-100 transition-colors">
+            من نحن
+          </a>
+          <a href="membership.html" class="px-3.5 py-2 rounded-lg text-sm font-semibold text-slate-700 hover:text-loyal-blue hover:bg-slate-100 transition-colors">
+            العضوية والرسوم
+          </a>
+          <a href="location.html" class="px-3.5 py-2 rounded-lg text-sm font-semibold text-slate-700 hover:text-loyal-blue hover:bg-slate-100 transition-colors">
+            طرق الوصول
+          </a>
+          <a href="contact.html" class="px-3.5 py-2 rounded-lg text-sm font-bold text-loyal-blue bg-loyal-blue-light transition-colors">
+            تواصل معنا
+          </a>
+        </nav>
+
+        <!-- Quick WhatsApp Chat -->
+        <div class="hidden sm:flex items-center gap-3">
+          <a href="https://wa.me/201149861291" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg text-sm font-bold text-emerald-700 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 transition" title="تواصل عبر واتساب">
+            <svg class="w-4 h-4 text-emerald-600" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.667-.699c.969.585 1.961.918 2.793.919 3.18 0 5.767-2.587 5.768-5.766.001-3.181-2.585-5.765-5.768-5.765zm0-2.172c4.379 0 7.938 3.559 7.938 7.938 0 4.38-3.559 7.938-7.938 7.938-1.393 0-2.7-.36-3.834-.989l-4.228 1.109 1.127-4.12c-.7-1.187-1.103-2.57-1.103-4.04 0-4.379 3.559-7.936 7.938-7.936z"/></svg>
+            <span>واتساب</span>
+          </a>
+        </div>
+
+        <!-- Mobile Menu Toggle Button -->
+        <button id="mobile-menu-btn" type="button" class="md:hidden p-2.5 rounded-lg text-slate-700 hover:bg-slate-100 focus:outline-none" aria-label="القائمة">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/></svg>
+        </button>
+      </div>
+
+      <!-- Mobile Dropdown Navigation -->
+      <div id="mobile-menu" class="hidden md:hidden py-4 border-t border-slate-200">
+        <div class="flex flex-col gap-2">
+          <a href="index.html" class="px-3 py-2 rounded-lg text-base font-semibold text-slate-700 hover:bg-slate-100">الرئيسية</a>
+          <a href="about.html" class="px-3 py-2 rounded-lg text-base font-semibold text-slate-700 hover:bg-slate-100">من نحن</a>
+          <a href="membership.html" class="px-3 py-2 rounded-lg text-base font-semibold text-slate-700 hover:bg-slate-100">العضوية والرسوم</a>
+          <a href="location.html" class="px-3 py-2 rounded-lg text-base font-semibold text-slate-700 hover:bg-slate-100">طرق الوصول</a>
+          <a href="contact.html" class="px-3 py-2 rounded-lg text-base font-bold text-loyal-blue bg-loyal-blue-light">تواصل معنا</a>
+          <div class="pt-2 border-t border-slate-100">
+            <a href="https://wa.me/201149861291" target="_blank" rel="noopener noreferrer" class="w-full text-center py-2.5 px-4 rounded-lg font-bold bg-emerald-600 text-white flex items-center justify-center gap-2">
+              <span>تواصل مباشر واتساب: +20 114 986 1291</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Page Header Banner -->
+  <section class="bg-gradient-to-b from-loyal-blue to-loyal-blue-dark text-white py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div class="flex flex-wrap justify-center items-center gap-2 mb-4">
+        <span class="inline-flex items-center gap-2 text-xs font-bold text-happy-yellow bg-white/10 px-4 py-1.5 rounded-full border border-white/20">
+          <span class="w-2 h-2 rounded-full bg-happy-yellow"></span>
+          <span>أول نادٍ للخطابة باللغة العربية في مصر • قطاع 20</span>
+        </span>
+        <span class="inline-block text-xs font-bold text-white bg-true-maroon px-3.5 py-1.5 rounded-full">
+          حيث يصنع القادة بلغة الضاد
+        </span>
+      </div>
+      <h1 class="text-3xl sm:text-4xl md:text-5xl font-black heading-font">
+        يسعدنا تواصلك وانضمامك إلى نادي الكلمة توستمساترز
+      </h1>
+      <p class="text-slate-200 text-base sm:text-lg max-w-2xl mx-auto mt-4 leading-relaxed font-normal">
+        سواء كان لديك استفسار عن مواعيد الاجتماعات، رغبة في حجز مقعد كضيف (150 ج.م)، أو الاستفسار عن تفاصيل العضوية الكاملة، فريقنا جاهز لمساعدتك دائماً.
+      </p>
+    </div>
+  </section>
+
+  <main class="flex-grow">
+    
+    <!-- Primary WhatsApp Fast Link Banner -->
+    <section class="py-10 bg-emerald-50 border-b border-emerald-100">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="bg-white rounded-3xl p-6 sm:p-8 border-2 border-emerald-500/30 shadow-md flex flex-col md:flex-row items-center justify-between gap-6">
+          <div class="flex items-center gap-4 text-right">
+            <div class="w-16 h-16 rounded-2xl bg-emerald-600 text-white flex items-center justify-center shrink-0 shadow-lg shadow-emerald-600/30">
+              <svg class="w-9 h-9" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.667-.699c.969.585 1.961.918 2.793.919 3.18 0 5.767-2.587 5.768-5.766.001-3.181-2.585-5.765-5.768-5.765zm0-2.172c4.379 0 7.938 3.559 7.938 7.938 0 4.38-3.559 7.938-7.938 7.938-1.393 0-2.7-.36-3.834-.989l-4.228 1.109 1.127-4.12c-.7-1.187-1.103-2.57-1.103-4.04 0-4.379 3.559-7.936 7.938-7.936z"/></svg>
+            </div>
+            <div>
+              <span class="text-xs font-bold text-emerald-700 bg-emerald-100 px-2.5 py-0.5 rounded-md">الرد السريع</span>
+              <h3 class="text-xl sm:text-2xl font-black text-slate-800 heading-font mt-1">تواصل مباشرة عبر واتساب</h3>
+              <p class="text-slate-600 text-xs sm:text-sm mt-0.5">انقر للمحادثة الفورية مع مسؤولي الاستقبال والعضوية بنادي الكلمة توستمساترز.</p>
+            </div>
+          </div>
+
+          <!-- Direct WhatsApp link -->
+          <a href="https://wa.me/201149861291" target="_blank" rel="noopener noreferrer" class="shrink-0 inline-flex items-center gap-2.5 px-7 py-4 rounded-2xl font-black text-base bg-emerald-600 hover:bg-emerald-700 text-white shadow-lg shadow-emerald-600/30 transition transform active:scale-95">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.667-.699c.969.585 1.961.918 2.793.919 3.18 0 5.767-2.587 5.768-5.766.001-3.181-2.585-5.765-5.768-5.765zm0-2.172c4.379 0 7.938 3.559 7.938 7.938 0 4.38-3.559 7.938-7.938 7.938-1.393 0-2.7-.36-3.834-.989l-4.228 1.109 1.127-4.12c-.7-1.187-1.103-2.57-1.103-4.04 0-4.379 3.559-7.936 7.938-7.936z"/></svg>
+            <span>محادثة واتساب: +20 114 986 1291</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Contact Information & Interactive Message Form -->
+    <section class="py-16 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+          
+          <!-- Contact Details Column -->
+          <div class="lg:col-span-5 space-y-6">
+            <div>
+              <span class="text-xs font-bold text-loyal-blue uppercase tracking-wider bg-loyal-blue-light px-3 py-1 rounded-full">قنوات الاتصال</span>
+              <h2 class="text-2xl sm:text-3xl font-black text-loyal-blue heading-font mt-2">
+                بيانات التواصل الرسمية
+              </h2>
+              <p class="text-slate-600 text-sm mt-2 leading-relaxed">
+                يسعد مسؤولو الهيئة التنفيذية لنادي الكلمة توستمساترز بتقديم كافة المعلومات والإرشادات لضيوفنا وأعضائنا الكرام.
+              </p>
+            </div>
+
+            <!-- Detail 1: WhatsApp -->
+            <div class="flex items-start gap-4 p-5 rounded-2xl bg-slate-50 border border-slate-200">
+              <div class="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0">
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.667-.699c.969.585 1.961.918 2.793.919 3.18 0 5.767-2.587 5.768-5.766.001-3.181-2.585-5.765-5.768-5.765zm0-2.172c4.379 0 7.938 3.559 7.938 7.938 0 4.38-3.559 7.938-7.938 7.938-1.393 0-2.7-.36-3.834-.989l-4.228 1.109 1.127-4.12c-.7-1.187-1.103-2.57-1.103-4.04 0-4.379 3.559-7.936 7.938-7.936z"/></svg>
+              </div>
+              <div>
+                <span class="text-xs font-bold text-slate-500 block">واتساب الرسمي (Direct WhatsApp)</span>
+                <a href="https://wa.me/201149861291" target="_blank" rel="noopener noreferrer" class="font-bold text-slate-800 hover:text-emerald-700 text-base en-font dir-ltr inline-block">
+                  +20 114 986 1291
+                </a>
+                <p class="text-xs text-slate-500 mt-0.5">متاح يومياً للرد الفوري على الاستفسارات وتأكيد حضور الضيوف.</p>
+              </div>
+            </div>
+
+            <!-- Detail 2: Phone -->
+            <div class="flex items-start gap-4 p-5 rounded-2xl bg-slate-50 border border-slate-200">
+              <div class="w-12 h-12 rounded-xl bg-loyal-blue-light text-loyal-blue flex items-center justify-center shrink-0">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+              </div>
+              <div>
+                <span class="text-xs font-bold text-slate-500 block">الاتصال الهاتفي المباشر</span>
+                <a href="tel:+201149861291" class="font-bold text-slate-800 hover:text-loyal-blue text-base en-font dir-ltr inline-block">
+                  +20 114 986 1291
+                </a>
+                <p class="text-xs text-slate-500 mt-0.5">رقم الاتصال المعتمد لدى Toastmasters International.</p>
+              </div>
+            </div>
+
+            <!-- Detail 3: Meeting Location -->
+            <div class="flex items-start gap-4 p-5 rounded-2xl bg-slate-50 border border-slate-200">
+              <div class="w-12 h-12 rounded-xl bg-true-maroon-light text-true-maroon flex items-center justify-center shrink-0">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+              </div>
+              <div>
+                <span class="text-xs font-bold text-slate-500 block">المقر الدوري للاجتماعات</span>
+                <span class="font-bold text-slate-800 text-sm sm:text-base block">eSpaces - شارع الثورة، مصر الجديدة، القاهرة</span>
+                <p class="text-xs text-slate-500 mt-0.5">السبت 1 و 3 من كل شهر (7:00 م - 9:30 م).</p>
+              </div>
+            </div>
+
+            <!-- Detail 4: Guest Fee Notice -->
+            <div class="p-5 rounded-2xl bg-happy-yellow/20 border border-happy-yellow-dark/30 text-slate-800 space-y-1.5">
+              <div class="flex items-center gap-2 font-bold text-sm text-loyal-blue">
+                <svg class="w-5 h-5 text-true-maroon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                <span>تذكير بحضور الضيوف:</span>
+              </div>
+              <p class="text-xs text-slate-700 leading-relaxed">
+                رسوم حضور الضيف هي <strong class="text-true-maroon font-black">150 ج.م فقط</strong> لكل اجتماع، وتُسدد عند الوصول أو مسبقاً، شاملة المشروبات والضيافة وكتيب الاجتماع.
+              </p>
+            </div>
+          </div>
+
+          <!-- Interactive Contact & WhatsApp Generator Form -->
+          <div class="lg:col-span-7 bg-slate-50 rounded-3xl p-6 sm:p-10 border border-slate-200">
+            <h3 class="text-2xl font-black text-loyal-blue heading-font mb-2">
+              نموذج التواصل السريع
+            </h3>
+            <p class="text-slate-600 text-sm mb-6">
+              أدخل بياناتك وسيتم توجيه رسالتك مباشرة إلى مسؤول النادي عبر الواتساب فوراً:
+            </p>
+
+            <form id="contact-form" class="space-y-4">
+              <div>
+                <label for="contact-name" class="block text-xs font-bold text-slate-700 mb-1.5">الاسم الكريم *</label>
+                <input type="text" id="contact-name" required placeholder="مثال: أحمد مصطفى" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-loyal-blue focus:border-transparent bg-white text-sm">
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label for="contact-phone" class="block text-xs font-bold text-slate-700 mb-1.5">رقم الهاتف / الواتساب *</label>
+                  <input type="tel" id="contact-phone" required placeholder="010xxxxxxxx" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-loyal-blue focus:border-transparent bg-white text-sm dir-ltr text-right">
+                </div>
+                <div>
+                  <label for="contact-type" class="block text-xs font-bold text-slate-700 mb-1.5">نوع الاستفسار *</label>
+                  <select id="contact-type" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-loyal-blue focus:border-transparent bg-white text-sm">
+                    <option value="guest">حجز مقعد كضيف (150 ج.م)</option>
+                    <option value="membership">استفسار عن إجراءات العضوية الكاملة</option>
+                    <option value="location">استفسار عن المقر والوصول</option>
+                    <option value="general">استفسار عام</option>
+                  </select>
+                </div>
+              </div>
+
+              <div>
+                <label for="contact-message" class="block text-xs font-bold text-slate-700 mb-1.5">رسالتك أو استفسارك (اختياري)</label>
+                <textarea id="contact-message" rows="4" placeholder="اكتب هنا أي تفاصيل أو استفسارات تود توجيهها لمسؤولي النادي..." class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-loyal-blue focus:border-transparent bg-white text-sm"></textarea>
+              </div>
+
+              <!-- Submit Button which triggers direct WhatsApp message -->
+              <div class="pt-2">
+                <button type="submit" class="w-full py-4 px-6 rounded-xl font-bold bg-emerald-600 hover:bg-emerald-700 text-white text-base shadow-md transition flex items-center justify-center gap-2">
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.667-.699c.969.585 1.961.918 2.793.919 3.18 0 5.767-2.587 5.768-5.766.001-3.181-2.585-5.765-5.768-5.765zm0-2.172c4.379 0 7.938 3.559 7.938 7.938 0 4.38-3.559 7.938-7.938 7.938-1.393 0-2.7-.36-3.834-.989l-4.228 1.109 1.127-4.12c-.7-1.187-1.103-2.57-1.103-4.04 0-4.379 3.559-7.936 7.938-7.936z"/></svg>
+                  <span>إرسال الرسالة عبر الواتساب الآن</span>
+                </button>
+              </div>
+
+              <!-- Quick direct preset links -->
+              <div class="pt-4 border-t border-slate-200">
+                <span class="text-xs font-bold text-slate-500 block mb-2">أو اختر موضوعاً جاهزاً للإرسال بنقرة واحدة:</span>
+                <div class="flex flex-wrap gap-2">
+                  <a href="https://wa.me/201149861291?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%20%D9%86%D8%A7%D8%AF%D9%8A%20%D8%A7%D9%84%D9%83%D9%84%D9%85%D8%A9%20%D8%AA%D9%88%D8%B3%D8%AA%D9%85%D8%B3%D8%A7%D8%AA%D8%B1%D8%B2%D8%8C%20%D8%A3%D9%88%D8%AF%20%D8%AD%D8%AC%D8%B2%20%D9%85%D9%82%D8%B9%D8%AF%20%D9%83%D8%B6%D9%8A%D9%81%20%D9%81%D9%8A%20%D8%A7%D9%84%D8%A7%D8%AC%D8%AA%D9%85%D8%A7%D8%B9%20%D8%A7%D9%84%D9%82%D8%A7%D8%AF%D9%85%20(150%20%D8%AC.%D9%85)" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 rounded-lg bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:border-emerald-500 hover:text-emerald-700 transition">
+                    💬 حجز مقعد كضيف (150 ج.م)
+                  </a>
+                  <a href="https://wa.me/201149861291?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%20%D9%86%D8%A7%D8%AF%D9%8A%20%D8%A7%D9%84%D9%83%D9%84%D9%85%D8%A9%20%D8%AA%D9%88%D8%B3%D8%AA%D9%85%D8%B3%D8%A7%D8%AA%D8%B1%D8%B2%D8%8C%20%D8%A3%D8%B1%D8%BA%D8%A8%20%D9%81%D9%8A%20%D9%85%D8%B9%D8%B1%D9%81%D8%A9%20%D8%AA%D9%81%D8%A7%D8%B5%D9%8A%D9%84%20%D8%A7%D9%84%D8%B9%D8%B6%D9%88%D9%8A%D8%A9%20%D8%A7%D9%84%D8%B3%D9%86%D9%88%D9%8A%D8%A9%20%D9%88%D9%85%D9%86%D9%87%D8%A7%D8%AC%20%D8%A8%D8%A7%D8%AB%D9%88%D9%8A%D8%B2" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 rounded-lg bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:border-emerald-500 hover:text-emerald-700 transition">
+                    🎓 تفاصيل العضوية ومنهاج باثويز
+                  </a>
+                </div>
+              </div>
+            </form>
+
+            <div id="form-success" class="hidden mt-4 p-4 rounded-xl bg-emerald-100 text-emerald-800 text-xs font-bold text-center">
+              تم تحضير رسالتك! جاري فتح واتساب للتواصل المباشر...
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Comprehensive Footer -->
+  <footer class="bg-[#00273d] text-slate-300 pt-16 pb-8 border-t-4 border-happy-yellow">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 pb-12 border-b border-slate-700/60">
+        
+        <div class="lg:col-span-4 space-y-4">
+          <div class="flex items-center gap-3">
+            <img src="/ToastmastersLogo3Color.svg" alt="Toastmasters International Logo" class="w-12 h-12 object-contain" />
+            <div>
+              <span class="text-lg font-black text-white heading-font block">نادي الكلمة توستمساترز</span>
+              <p class="text-xs text-happy-yellow font-bold en-font">AlKalemah Toastmasters Club • District 20</p>
+            </div>
+          </div>
+          <p class="text-sm text-slate-300 leading-relaxed">
+            أول نادٍ للخطابة باللغة العربية في مصر، تأسس بالقاهرة تحت مظلة منظمة التوستماسترز العالمية. بيئة تفاعلية لتطوير مهارات التحدث والتواصل والقيادة باللغة العربية.
+          </p>
+          <div class="pt-2">
+            <span class="inline-block text-xs bg-white/10 px-3 py-1 rounded text-happy-yellow font-bold">
+              الاجتماعات: السبت 1 و 3 شهرياً (7:00 - 9:30 م)
+            </span>
+          </div>
+        </div>
+
+        <div class="lg:col-span-2 space-y-3">
+          <h4 class="text-white font-bold text-base heading-font border-b border-white/10 pb-2">روابط سريعة</h4>
+          <ul class="space-y-2 text-sm">
+            <li><a href="index.html" class="hover:text-happy-yellow transition">الصفحة الرئيسية</a></li>
+            <li><a href="about.html" class="hover:text-happy-yellow transition">من نحن</a></li>
+            <li><a href="membership.html" class="hover:text-happy-yellow transition">العضوية والرسوم</a></li>
+            <li><a href="location.html" class="hover:text-happy-yellow transition">طرق الوصول</a></li>
+            <li><a href="contact.html" class="hover:text-happy-yellow transition font-bold text-happy-yellow">تواصل معنا</a></li>
+          </ul>
+        </div>
+
+        <div class="lg:col-span-3 space-y-3">
+          <h4 class="text-white font-bold text-base heading-font border-b border-white/10 pb-2">المقر الدقيق</h4>
+          <p class="text-sm text-slate-300">
+            eSpaces - شارع الثورة، مصر الجديدة، القاهرة، جمهورية مصر العربية.
+          </p>
+          <p class="text-xs text-slate-300">
+            السبت الأول والثالث من كل شهر (7:00 - 9:30 م).
+          </p>
+          <p class="text-xs text-slate-400">
+            رسوم حضور الضيف: <span class="text-happy-yellow font-bold">150 ج.م</span> للاجتماع.
+          </p>
+        </div>
+
+        <div class="lg:col-span-3 space-y-3">
+          <h4 class="text-white font-bold text-base heading-font border-b border-white/10 pb-2">التواصل والاستفسار</h4>
+          <p class="text-xs text-slate-300">نسعد بالرد على استفساراتكم عبر الواتساب:</p>
+          <a href="https://wa.me/201149861291" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold transition">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.667-.699c.969.585 1.961.918 2.793.919 3.18 0 5.767-2.587 5.768-5.766.001-3.181-2.585-5.765-5.768-5.765zm0-2.172c4.379 0 7.938 3.559 7.938 7.938 0 4.38-3.559 7.938-7.938 7.938-1.393 0-2.7-.36-3.834-.989l-4.228 1.109 1.127-4.12c-.7-1.187-1.103-2.57-1.103-4.04 0-4.379 3.559-7.936 7.938-7.936z"/></svg>
+            <span>واتساب: 201149861291+</span>
+          </a>
+          <p class="text-xs text-slate-300">الهاتف: <a href="tel:+201149861291" class="hover:text-happy-yellow dir-ltr inline-block font-semibold">+20 114 986 1291</a></p>
+        </div>
+
+      </div>
+
+      <!-- MANDATORY TOASTMASTERS LEGAL WEB DISCLAIMER IN ENGLISH -->
+      <div class="pt-8 pb-4 text-center space-y-3">
+        <p class="text-xs sm:text-sm text-slate-300 max-w-4xl mx-auto leading-relaxed en-font bg-white/5 p-4 rounded-xl border border-white/10" dir="ltr">
+          "The information on this website is for the sole use of Toastmasters' members, for Toastmasters business only. It is not to be used for solicitation and distribution of non-Toastmasters material or information."
+        </p>
+        <p class="text-xs text-slate-400 pt-2">
+          جميع الحقوق محفوظة © نادي الكلمة توستمساترز (AlKalemah Toastmasters Club) - تابع لمنظمة التوستماسترز العالمية (Toastmasters International).
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    // Mobile Menu Toggle
+    const menuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    if (menuBtn && mobileMenu) {
+      menuBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+      });
+    }
+
+    // Interactive Contact Form Handling -> Redirects smoothly to WhatsApp with pre-filled text
+    const contactForm = document.getElementById('contact-form');
+    const formSuccess = document.getElementById('form-success');
+    if (contactForm) {
+      contactForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const name = document.getElementById('contact-name').value.trim();
+        const phone = document.getElementById('contact-phone').value.trim();
+        const typeSelect = document.getElementById('contact-type');
+        const typeText = typeSelect.options[typeSelect.selectedIndex].text;
+        const msg = document.getElementById('contact-message').value.trim();
+
+        let messageText = `مرحباً نادي الكلمة توستمساترز،\nأنا: ${name}\nرقم الهاتف: ${phone}\nالموضوع: ${typeText}`;
+        if (msg) {
+          messageText += `\nالرسالة: ${msg}`;
+        }
+
+        const encodedMsg = encodeURIComponent(messageText);
+        const whatsappUrl = `https://wa.me/201149861291?text=${encodedMsg}`;
+
+        if (formSuccess) {
+          formSuccess.classList.remove('hidden');
+        }
+
+        setTimeout(() => {
+          window.open(whatsappUrl, '_blank');
+        }, 300);
+      });
+    }
+  </script>
+</body>
+</html>

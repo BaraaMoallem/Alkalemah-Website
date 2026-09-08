@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>نادي الكلمة توستمساترز | AlKalemah Toastmasters Club</title>
+  <meta name="description" content="الموقع الرسمي لنادي الكلمة توستمساترز (AlKalemah Toastmasters Club) في القاهرة، مصر - أول نادٍ للخطابة باللغة العربية لتطوير مهارات التحدث والتواصل والقيادة.">
+  <meta property="og:title" content="نادي الكلمة توستمساترز | AlKalemah Toastmasters Club">
+  <meta property="og:description" content="نادي الكلمة توستمساترز (AlKalemah Toastmasters Club) في القاهرة - بيئة تعليمية داعمة لتطوير مهارات الخطابة والتواصل والقيادة باللغة العربية.">
+  <meta property="og:type" content="website">
+
+  <!-- Google Fonts: Cairo for Arabic & Montserrat for Headings/Numbers -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Montserrat:wght@500;600;700;800&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'loyal-blue': '#004165',
+            'loyal-blue-dark': '#00273d',
+            'loyal-blue-light': '#e8f2f8',
+            'true-maroon': '#772432',
+            'true-maroon-dark': '#521721',
+            'true-maroon-light': '#faebed',
+            'cool-gray': '#A9B2B1',
+            'cool-gray-light': '#f4f6f6',
+            'happy-yellow': '#F2DF74',
+            'happy-yellow-dark': '#d8c24f',
+          },
+          fontFamily: {
+            cairo: ['Cairo', 'sans-serif'],
+            montserrat: ['Montserrat', 'sans-serif'],
+            sans: ['Cairo', 'Source Sans 3', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Cairo', sans-serif;
+    }
+    .heading-font {
+      font-family: 'Cairo', 'Montserrat', sans-serif;
+    }
+    .en-font {
+      font-family: 'Montserrat', 'Source Sans 3', sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-[#fcfdfd] text-slate-800 antialiased selection:bg-happy-yellow selection:text-loyal-blue flex flex-col min-h-screen">
+
+  <!-- Main Navigation Header -->
+  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md shadow-sm border-b border-slate-200/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        
+        <!-- Logo & Brand identity -->
+        <a href="index.html" class="flex items-center gap-3 group focus:outline-none shrink-0">
+          <img src="/ToastmastersLogo3Color.svg" alt="Toastmasters International Logo" class="w-12 h-12 object-contain transition-transform group-hover:scale-105" />
+          <div>
+            <span class="text-xl sm:text-2xl font-black text-loyal-blue heading-font tracking-tight">نادي الكلمة توستمساترز</span>
+          </div>
+        </a>
+
+        <!-- Desktop Navigation Links (من نحن، طرق الوصول، العضوية، تواصل معنا) -->
+        <nav class="hidden md:flex items-center gap-1.5 lg:gap-2">
+          <a href="index.html" class="px-3.5 py-2 rounded-lg text-sm font-bold text-loyal-blue bg-loyal-blue-light transition-colors">
+            الرئيسية
+          </a>
+          <a href="about.html" class="px-3.5 py-2 rounded-lg text-sm font-semibold text-slate-700 hover:text-loyal-blue hover:bg-slate-100 transition-colors">
+            من نحن
+          </a>
+          <a href="membership.html" class="px-3.5 py-2 rounded-lg text-sm font-semibold text-slate-700 hover:text-loyal-blue hover:bg-slate-100 transition-colors">
+            العضوية والرسوم
+          </a>
+          <a href="location.html" class="px-3.5 py-2 rounded-lg text-sm font-semibold text-slate-700 hover:text-loyal-blue hover:bg-slate-100 transition-colors">
+            طرق الوصول
+          </a>
+          <a href="contact.html" class="px-3.5 py-2 rounded-lg text-sm font-semibold text-slate-700 hover:text-loyal-blue hover:bg-slate-100 transition-colors">
+            تواصل معنا
+          </a>
+        </nav>
+
+        <!-- Quick WhatsApp Chat -->
+        <div class="hidden sm:flex items-center gap-3">
+          <a href="https://wa.me/201149861291" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg text-sm font-bold text-emerald-700 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 transition" title="تواصل عبر واتساب">
+            <svg class="w-4 h-4 text-emerald-600" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.667-.699c.969.585 1.961.918 2.793.919 3.18 0 5.767-2.587 5.768-5.766.001-3.181-2.585-5.765-5.768-5.765zm0-2.172c4.379 0 7.938 3.559 7.938 7.938 0 4.38-3.559 7.938-7.938 7.938-1.393 0-2.7-.36-3.834-.989l-4.228 1.109 1.127-4.12c-.7-1.187-1.103-2.57-1.103-4.04 0-4.379 3.559-7.936 7.938-7.936z"/></svg>
+            <span>واتساب</span>
+          </a>
+        </div>
+
+        <!-- Mobile Menu Toggle Button -->
+        <button id="mobile-menu-btn" type="button" class="md:hidden p-2.5 rounded-lg text-slate-700 hover:bg-slate-100 focus:outline-none" aria-label="القائمة">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/></svg>
+        </button>
+      </div>
+
+      <!-- Mobile Dropdown Navigation -->
+      <div id="mobile-menu" class="hidden md:hidden py-4 border-t border-slate-200">
+        <div class="flex flex-col gap-2">
+          <a href="index.html" class="px-3 py-2 rounded-lg text-base font-bold text-loyal-blue bg-loyal-blue-light">الرئيسية</a>
+          <a href="about.html" class="px-3 py-2 rounded-lg text-base font-semibold text-slate-700 hover:bg-slate-100">من نحن</a>
+          <a href="membership.html" class="px-3 py-2 rounded-lg text-base font-semibold text-slate-700 hover:bg-slate-100">العضوية والرسوم</a>
+          <a href="location.html" class="px-3 py-2 rounded-lg text-base font-semibold text-slate-700 hover:bg-slate-100">طرق الوصول</a>
+          <a href="contact.html" class="px-3 py-2 rounded-lg text-base font-semibold text-slate-700 hover:bg-slate-100">تواصل معنا</a>
+          <div class="pt-2 border-t border-slate-100">
+            <a href="https://wa.me/201149861291" target="_blank" rel="noopener noreferrer" class="w-full text-center py-2.5 px-4 rounded-lg font-bold bg-emerald-600 text-white flex items-center justify-center gap-2">
+              <span>محادثة فورية عبر واتساب</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <main class="flex-grow">
+    <section class="relative bg-gradient-to-b from-loyal-blue to-loyal-blue-dark text-white overflow-hidden py-16 sm:py-24">
+      <!-- Decorative Toastmasters Yellow / Gray Brand Accents -->
+      <div class="absolute top-0 right-0 w-96 h-96 bg-happy-yellow/10 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20"></div>
+      <div class="absolute bottom-0 left-0 w-80 h-80 bg-true-maroon/20 rounded-full blur-2xl pointer-events-none -ml-20 -mb-20"></div>
+
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          
+          <div class="lg:col-span-7 space-y-6">
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 text-happy-yellow text-xs sm:text-sm font-semibold">
+                <span class="w-2 h-2 rounded-full bg-happy-yellow"></span>
+                أول نادٍ للخطابة باللغة العربية في مصر • تأسس بالقاهرة
+              </span>
+              <span class="px-2.5 py-0.5 rounded-full bg-true-maroon text-white text-xs font-bold">
+                حيث يصنع القادة بلغة الضاد
+              </span>
+            </div>
+
+            <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black heading-font leading-tight">
+              اكتشف صوتك.. <br>
+              وتحدث بثقة في <span class="text-happy-yellow">نادي الكلمة توستمساترز</span>
+            </h1>
+
+            <p class="text-slate-200 text-base sm:text-lg leading-relaxed max-w-2xl font-normal">
+              نوفر لك بيئة تدريبية إيجابية وداعمة لصقل مهارات الخطابة، الإلقاء، والقيادة وفق المنهج العالمي لمنظمة التوستماسترز الدولية (AlKalemah Toastmasters Club - القطاع 20).
+            </p>
+
+            <!-- Key Feature Badges -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-1">
+              <div class="bg-white/5 border border-white/10 rounded-xl p-3 text-center">
+                <span class="block text-happy-yellow font-bold text-lg md:text-xl">باللغة العربية</span>
+                <span class="text-xs text-slate-300">أول نادٍ عربي في مصر</span>
+              </div>
+              <div class="bg-white/5 border border-white/10 rounded-xl p-3 text-center">
+                <span class="block text-happy-yellow font-bold text-lg md:text-xl">السبت 1 و 3</span>
+                <span class="text-xs text-slate-300">7:00 م - 9:30 م</span>
+              </div>
+              <div class="bg-white/5 border border-white/10 rounded-xl p-3 text-center col-span-2 sm:col-span-1">
+                <span class="block text-happy-yellow font-bold text-lg md:text-xl">مصر الجديدة</span>
+                <span class="text-xs text-slate-300">eSpaces - شارع الثورة + Zoom</span>
+              </div>
+            </div>
+
+            <!-- Call to Action Buttons -->
+            <div class="pt-3 flex flex-wrap gap-4 items-center">
+              <a href="membership.html" class="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-bold bg-true-maroon hover:bg-true-maroon-dark text-white text-base shadow-lg shadow-true-maroon/40 transition transform active:scale-95">
+                <span>احجز مقعدك كضيف الآن (150 ج.م)</span>
+                <svg class="w-5 h-5 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+              </a>
+              <a href="about.html" class="inline-flex items-center justify-center px-6 py-3.5 rounded-xl font-bold bg-white/10 hover:bg-white/20 text-white border border-white/20 text-base transition">
+                <span>عن النادي ورسالتنا</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Meeting Information Card in Hero -->
+          <div class="lg:col-span-5">
+            <div class="bg-white text-slate-800 rounded-2xl shadow-2xl p-6 sm:p-8 border-4 border-happy-yellow relative overflow-hidden">
+              <div class="absolute top-0 left-0 bg-loyal-blue text-white text-xs font-bold px-4 py-1.5 rounded-br-xl">
+                الاجتماع الدوري القادم
+              </div>
+
+              <div class="pt-4 pb-2">
+                <span class="text-xs font-bold text-true-maroon uppercase tracking-wider block">موعدنا القادم</span>
+                <h3 class="text-xl sm:text-2xl font-black text-loyal-blue heading-font mt-1">اجتماع نادي الكلمة توستمساترز</h3>
+                <p class="text-slate-500 text-sm mt-1">اجتماع تدريبي تفاعلي مفتوح للضيوف والأعضاء (حضوري وهجين عبر Zoom)</p>
+              </div>
+
+              <div class="space-y-4 my-6 py-4 border-y border-slate-100">
+                <div class="flex items-start gap-3">
+                  <div class="w-9 h-9 rounded-lg bg-loyal-blue-light text-loyal-blue flex items-center justify-center shrink-0 mt-0.5">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                  </div>
+                  <div>
+                    <span class="text-xs text-slate-500 block">الموعد الثابت</span>
+                    <span class="font-bold text-slate-800 text-sm sm:text-base">السبت الأول والثالث من كل شهر</span>
+                  </div>
+                </div>
+
+                <div class="flex items-start gap-3">
+                  <div class="w-9 h-9 rounded-lg bg-loyal-blue-light text-loyal-blue flex items-center justify-center shrink-0 mt-0.5">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                  </div>
+                  <div>
+                    <span class="text-xs text-slate-500 block">التوقيت (توقيت القاهرة)</span>
+                    <span class="font-bold text-slate-800 text-sm sm:text-base">من 7:00 مساءً حتى 9:30 مساءً</span>
+                  </div>
+                </div>
+
+                <div class="flex items-start gap-3">
+                  <div class="w-9 h-9 rounded-lg bg-loyal-blue-light text-loyal-blue flex items-center justify-center shrink-0 mt-0.5">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                  </div>
+                  <div>
+                    <span class="text-xs text-slate-500 block">الموقع</span>
+                    <span class="font-bold text-slate-800 text-sm sm:text-base">eSpaces - شارع الثورة، مصر الجديدة + Zoom</span>
+                  </div>
+                </div>
+
+                <div class="flex items-start gap-3">
+                  <div class="w-9 h-9 rounded-lg bg-emerald-50 text-emerald-700 flex items-center justify-center shrink-0 mt-0.5">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                  </div>
+                  <div>
+                    <span class="text-xs text-slate-500 block">رسوم حضور الضيوف</span>
+                    <span class="font-bold text-emerald-800 text-base">150 ج.م فقط (شاملة الضيافة والمواد التدريبية)</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="space-y-2">
+                <a href="https://wa.me/201149861291?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%D8%8C%20%D8%A3%D9%88%D8%AF%20%D8%AD%D8%AC%D8%B2%20%D9%85%D9%82%D8%B9%D8%AF%D9%8A%20%D9%83%D8%B6%D9%8A%D9%81%20%D9%81%D9%8A%20%D8%A7%D8%AC%D8%AA%D9%85%D8%A7%D8%B9%20%D9%86%D8%A7%D8%AF%D9%8A%20%D8%A7%D9%84%D9%83%D9%84%D9%85%D8%A9%20%D8%AA%D9%88%D8%B3%D8%AA%D9%85%D8%B3%D8%A7%D8%AA%D8%B1%D8%B2" target="_blank" rel="noopener noreferrer" class="w-full py-3 px-4 rounded-xl font-bold bg-emerald-600 hover:bg-emerald-700 text-white flex items-center justify-center gap-2 transition shadow-sm">
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.667-.699c.969.585 1.961.918 2.793.919 3.18 0 5.767-2.587 5.768-5.766.001-3.181-2.585-5.765-5.768-5.765zm0-2.172c4.379 0 7.938 3.559 7.938 7.938 0 4.38-3.559 7.938-7.938 7.938-1.393 0-2.7-.36-3.834-.989l-4.228 1.109 1.127-4.12c-.7-1.187-1.103-2.57-1.103-4.04 0-4.379 3.559-7.936 7.938-7.936z"/></svg>
+                  <span>تأكيد الحضور عبر واتساب (+20 114 986 1291)</span>
+                </a>
+                <a href="location.html" class="w-full py-2.5 px-4 rounded-xl font-bold text-loyal-blue hover:bg-loyal-blue-light flex items-center justify-center gap-2 text-sm transition">
+                  <span>تفاصيل العنوان وخريطة الوصول</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Why Al Kalimah Club Section -->
+    <section class="py-16 bg-white border-b border-slate-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-3xl mx-auto mb-14">
+          <span class="text-xs font-bold text-true-maroon uppercase tracking-wider bg-true-maroon-light px-3 py-1 rounded-full">لماذا نادي الكلمة؟</span>
+          <h2 class="text-3xl sm:text-4xl font-black text-loyal-blue heading-font mt-3">
+            رحلتك لتصبح متحدثاً مفوهاً وقائداً ملهماً
+          </h2>
+          <p class="text-slate-600 text-base sm:text-lg mt-3">
+            يقدم نادي الكلمة منهجاً تدريبياً تطبيقياً يساعدك على التغلب على رهبة المنصة والتعبير عن أفكارك ببراعة وبلاغة باللغة العربية.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          
+          <!-- Pillar 1 -->
+          <div class="bg-slate-50 hover:bg-white rounded-2xl p-6 border border-slate-200 hover:border-loyal-blue hover:shadow-lg transition-all">
+            <div class="w-12 h-12 rounded-xl bg-loyal-blue text-happy-yellow flex items-center justify-center mb-4 font-bold text-xl">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 100-6 3 3 0 000 6z"/></svg>
+            </div>
+            <h3 class="text-lg font-bold text-loyal-blue mb-2">الخطابة العامة المجهزة</h3>
+            <p class="text-slate-600 text-sm leading-relaxed">
+              إعداد وإلقاء خطب متدرجة ومحكمة وفق أهداف تعليمية واضحة في مسارات مسار Pathways العالمي.
+            </p>
+          </div>
+
+          <!-- Pillar 2 -->
+          <div class="bg-slate-50 hover:bg-white rounded-2xl p-6 border border-slate-200 hover:border-true-maroon hover:shadow-lg transition-all">
+            <div class="w-12 h-12 rounded-xl bg-true-maroon text-white flex items-center justify-center mb-4 font-bold text-xl">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            </div>
+            <h3 class="text-lg font-bold text-true-maroon mb-2">الخطب الارتجالية السريعة</h3>
+            <p class="text-slate-600 text-sm leading-relaxed">
+              تدريب مكثف على الإجابة المفاجئة خلال دقيقة أو دقيقتين لتقوية سرعة البديهة والذكاء اللغوي والاتزان الذهني.
+            </p>
+          </div>
+
+          <!-- Pillar 3 -->
+          <div class="bg-slate-50 hover:bg-white rounded-2xl p-6 border border-slate-200 hover:border-loyal-blue hover:shadow-lg transition-all">
+            <div class="w-12 h-12 rounded-xl bg-loyal-blue text-happy-yellow flex items-center justify-center mb-4 font-bold text-xl">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            </div>
+            <h3 class="text-lg font-bold text-loyal-blue mb-2">التقييم البناء الداعم</h3>
+            <p class="text-slate-600 text-sm leading-relaxed">
+              لا توجد انتقادات سلبية، بل توجيهات عملية محفزة توضح نقاط القوة وفرص التطوير في بيئة يسودها الاحترام.
+            </p>
+          </div>
+
+          <!-- Pillar 4 -->
+          <div class="bg-slate-50 hover:bg-white rounded-2xl p-6 border border-slate-200 hover:border-true-maroon hover:shadow-lg transition-all">
+            <div class="w-12 h-12 rounded-xl bg-true-maroon text-white flex items-center justify-center mb-4 font-bold text-xl">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+            </div>
+            <h3 class="text-lg font-bold text-true-maroon mb-2">القيادة الإدارية والتنظيمية</h3>
+            <p class="text-slate-600 text-sm leading-relaxed">
+              إدارة الاجتماعات، تنسيق الوقت، قيادة اللجان التنفيذية، والتدرج القيادي عبر مناصب النادي المعتمدة عالمياً.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Meeting Structure Overview Section -->
+    <section class="py-16 bg-slate-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          
+          <div class="lg:col-span-5 space-y-6">
+            <span class="text-xs font-bold text-loyal-blue uppercase tracking-wider bg-loyal-blue-light px-3 py-1 rounded-full">هيكل الاجتماع</span>
+            <h2 class="text-3xl sm:text-4xl font-black text-loyal-blue heading-font">
+              ماذا يحدث داخل اجتماع نادي الكلمة؟
+            </h2>
+            <p class="text-slate-600 text-base leading-relaxed">
+              كل اجتماع يمتد لساعتين ونصف من المتعة والتطبيق، مقسم إلى ثلاثة أقسام رئيسية تضمن مشاركة الجميع وتنمية المهارات المتكاملة:
+            </p>
+
+            <div class="space-y-4">
+              <div class="flex items-start gap-4 p-4 rounded-xl bg-white border border-slate-200">
+                <span class="w-8 h-8 rounded-full bg-loyal-blue text-happy-yellow font-black flex items-center justify-center shrink-0">1</span>
+                <div>
+                  <h4 class="font-bold text-loyal-blue text-base">جلسة الخطب المُعدة مسبقاً</h4>
+                  <p class="text-sm text-slate-500 mt-1">يقدم الأعضاء خطبهم المجهزة من 5 إلى 7 دقائق متدرجة الصعوبة.</p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-4 p-4 rounded-xl bg-white border border-slate-200">
+                <span class="w-8 h-8 rounded-full bg-true-maroon text-white font-black flex items-center justify-center shrink-0">2</span>
+                <div>
+                  <h4 class="font-bold text-true-maroon text-base">فقرة الخطب الارتجالية (الساحة المفتوحة)</h4>
+                  <p class="text-sm text-slate-500 mt-1">يُدعى الأعضاء والضيوف للإجابة عن أسئلة عفوية دقيقة إلى دقيقتين.</p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-4 p-4 rounded-xl bg-white border border-slate-200">
+                <span class="w-8 h-8 rounded-full bg-loyal-blue text-happy-yellow font-black flex items-center justify-center shrink-0">3</span>
+                <div>
+                  <h4 class="font-bold text-loyal-blue text-base">جلسة التقييم والتقارير الفنية</h4>
+                  <p class="text-sm text-slate-500 mt-1">يقدم مقيمو الخطب والميقاتي والمدقق اللغوي ملاحظاتهم الإيجابية المفصلة.</p>
+                </div>
+              </div>
+            </div>
+
+            <a href="about.html" class="inline-flex items-center gap-2 text-sm font-bold text-loyal-blue hover:text-true-maroon transition">
+              <span>قراءة التفاصيل الكاملة لهيكل الاجتماع</span>
+              <svg class="w-4 h-4 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+            </a>
+          </div>
+
+          <div class="lg:col-span-7">
+            <!-- Testimonial / Experience Card -->
+            <div class="bg-gradient-to-br from-loyal-blue to-loyal-blue-dark text-white rounded-3xl p-8 sm:p-10 shadow-xl relative">
+              <div class="text-happy-yellow text-5xl font-serif leading-none mb-4">“</div>
+              <p class="text-lg sm:text-xl text-slate-100 leading-relaxed italic mb-6">
+                «عندما حضرت أول اجتماع لي في نادي الكلمة كضيف، كنت أخشى نطق بضع كلمات أمام خمسة أشخاص. اليوم، بفضل الدعم الأسطوري للأعضاء وبيئة التقييم البناءة، ألقي خطبي أمام المئات بثقة وفصاحة لم أكن أحلم بها!»
+              </p>
+              <div class="flex items-center gap-4 pt-4 border-t border-white/15">
+                <div class="w-12 h-12 rounded-full bg-true-maroon text-white flex items-center justify-center font-bold text-lg border-2 border-happy-yellow">
+                  ك
+                </div>
+                <div>
+                  <span class="block font-bold text-white text-base">أحد أعضاء نادي الكلمة</span>
+                  <span class="text-xs text-happy-yellow">القاهرة • مسار التواصل الإقناعي</span>
+                </div>
+              </div>
+
+              <!-- Quick Banner for Guest fee -->
+              <div class="mt-8 bg-white/10 backdrop-blur-sm rounded-2xl p-4 border border-white/20 flex flex-wrap items-center justify-between gap-3">
+                <div>
+                  <span class="text-xs text-slate-300 block">هل أنت مستعد لتجربة الاجتماع الأول؟</span>
+                  <span class="font-bold text-white text-sm sm:text-base">احضر كضيف بـ 150 ج.م فقط وشاهد التغيير</span>
+                </div>
+                <a href="membership.html" class="px-4 py-2 bg-happy-yellow hover:bg-happy-yellow-dark text-loyal-blue font-bold rounded-lg text-xs sm:text-sm transition">
+                  تفاصيل الرسوم
+                </a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Quick CTA Section before footer -->
+    <section class="py-14 bg-loyal-blue text-white">
+      <div class="max-w-5xl mx-auto px-4 text-center space-y-6">
+        <h2 class="text-2xl sm:text-3xl md:text-4xl font-black heading-font text-white">
+          أطلق قدراتك في الخطابة مع أسرة نادي الكلمة
+        </h2>
+        <p class="text-slate-200 max-w-2xl mx-auto text-base">
+          لا تنتظر أن تصبح متحدثاً محترفاً لتنضم، بل انضم لتصبح المتحدث والقائد الذي طالما تمنيت أن تكون.
+        </p>
+        <div class="flex flex-wrap justify-center gap-4 pt-2">
+          <a href="https://wa.me/201149861291?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%20%D9%86%D8%A7%D8%AF%D9%8A%20%D8%A7%D9%84%D9%83%D9%84%D9%85%D8%A9%20%D8%AA%D9%88%D8%B3%D8%AA%D9%85%D8%B3%D8%A7%D8%AA%D8%B1%D8%B2%D8%8C%20%D8%A3%D8%B1%D8%BA%D8%A8%20%D9%81%D9%8A%20%D8%AD%D8%B6%D9%88%D8%B1%20%D8%A7%D9%84%D8%A7%D8%AC%D8%AA%D9%85%D8%A7%D8%B9%20%D8%A7%D9%84%D9%82%D8%A7%D8%AF%D9%85" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-bold bg-emerald-600 hover:bg-emerald-700 text-white shadow-lg transition">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.667-.699c.969.585 1.961.918 2.793.919 3.18 0 5.767-2.587 5.768-5.766.001-3.181-2.585-5.765-5.768-5.765zm0-2.172c4.379 0 7.938 3.559 7.938 7.938 0 4.38-3.559 7.938-7.938 7.938-1.393 0-2.7-.36-3.834-.989l-4.228 1.109 1.127-4.12c-.7-1.187-1.103-2.57-1.103-4.04 0-4.379 3.559-7.936 7.938-7.936z"/></svg>
+            <span>احجز مقعدك بالواتساب الآن</span>
+          </a>
+          <a href="location.html" class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-bold bg-white text-loyal-blue hover:bg-slate-100 shadow transition">
+            <span>مقر النادي بمصر الجديدة</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Comprehensive Footer -->
+  <footer class="bg-[#00273d] text-slate-300 pt-16 pb-8 border-t-4 border-happy-yellow">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 pb-12 border-b border-slate-700/60">
+        
+        <!-- About Col -->
+        <div class="lg:col-span-4 space-y-4">
+          <div class="flex items-center gap-3">
+            <img src="/ToastmastersLogo3Color.svg" alt="Toastmasters International Logo" class="w-12 h-12 object-contain" />
+            <div>
+              <span class="text-lg font-black text-white heading-font block">نادي الكلمة توستمساترز</span>
+              <p class="text-xs text-happy-yellow font-bold en-font">AlKalemah Toastmasters Club • District 20</p>
+            </div>
+          </div>
+          <p class="text-sm text-slate-300 leading-relaxed">
+            أول نادٍ للخطابة باللغة العربية في مصر، تأسس بالقاهرة تحت مظلة منظمة التوستماسترز العالمية. بيئة تفاعلية لتطوير مهارات التحدث والتواصل والقيادة باللغة العربية.
+          </p>
+          <div class="pt-2">
+            <span class="inline-block text-xs bg-white/10 px-3 py-1 rounded text-happy-yellow font-bold">
+              الاجتماعات: السبت 1 و 3 شهرياً (7:00 - 9:30 م)
+            </span>
+          </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="lg:col-span-2 space-y-3">
+          <h4 class="text-white font-bold text-base heading-font border-b border-white/10 pb-2">روابط سريعة</h4>
+          <ul class="space-y-2 text-sm">
+            <li><a href="index.html" class="hover:text-happy-yellow transition">الصفحة الرئيسية</a></li>
+            <li><a href="about.html" class="hover:text-happy-yellow transition">من نحن</a></li>
+            <li><a href="membership.html" class="hover:text-happy-yellow transition">العضوية والرسوم</a></li>
+            <li><a href="location.html" class="hover:text-happy-yellow transition">طرق الوصول</a></li>
+            <li><a href="contact.html" class="hover:text-happy-yellow transition">تواصل معنا</a></li>
+          </ul>
+        </div>
+
+        <!-- Meeting & Location -->
+        <div class="lg:col-span-3 space-y-3">
+          <h4 class="text-white font-bold text-base heading-font border-b border-white/10 pb-2">المقر والاجتماعات</h4>
+          <p class="text-sm text-slate-300">
+            eSpaces (شارع الثورة - مصر الجديدة)، القاهرة، جمهورية مصر العربية (مع إتاحة الحضور الهجين أونلاين عبر Zoom).
+          </p>
+          <p class="text-xs text-slate-400">
+            رسوم حضور الضيوف: <span class="text-happy-yellow font-bold">150 ج.م</span> للاجتماع الواحد.
+          </p>
+          <div class="pt-2">
+            <a href="location.html" class="text-xs text-happy-yellow hover:underline flex items-center gap-1 font-semibold">
+              <span>عرض إرشادات الوصول والموقع</span>
+              <svg class="w-3.5 h-3.5 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Direct Contact -->
+        <div class="lg:col-span-3 space-y-3">
+          <h4 class="text-white font-bold text-base heading-font border-b border-white/10 pb-2">التواصل والاستفسار</h4>
+          <p class="text-xs text-slate-300">
+            يسعدنا الرد على جميع استفساراتكم وترتيب حضوركم للاجتماع القادم:
+          </p>
+          <a href="https://wa.me/201149861291" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold transition">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.667-.699c.969.585 1.961.918 2.793.919 3.18 0 5.767-2.587 5.768-5.766.001-3.181-2.585-5.765-5.768-5.765zm0-2.172c4.379 0 7.938 3.559 7.938 7.938 0 4.38-3.559 7.938-7.938 7.938-1.393 0-2.7-.36-3.834-.989l-4.228 1.109 1.127-4.12c-.7-1.187-1.103-2.57-1.103-4.04 0-4.379 3.559-7.936 7.938-7.936z"/></svg>
+            <span>واتساب: 201149861291+</span>
+          </a>
+          <p class="text-xs text-slate-300">الهاتف: <a href="tel:+201149861291" class="hover:text-happy-yellow dir-ltr inline-block font-semibold">+20 114 986 1291</a></p>
+        </div>
+
+      </div>
+
+      <!-- MANDATORY TOASTMASTERS LEGAL WEB DISCLAIMER IN ENGLISH -->
+      <div class="pt-8 pb-4 text-center space-y-3">
+        <p class="text-xs sm:text-sm text-slate-300 max-w-4xl mx-auto leading-relaxed en-font bg-white/5 p-4 rounded-xl border border-white/10" dir="ltr">
+          "The information on this website is for the sole use of Toastmasters' members, for Toastmasters business only. It is not to be used for solicitation and distribution of non-Toastmasters material or information."
+        </p>
+        <p class="text-xs text-slate-400 pt-2">
+          جميع الحقوق محفوظة © نادي الكلمة توستمساترز (AlKalemah Toastmasters Club) - تابع لمنظمة التوستماسترز العالمية (Toastmasters International).
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Mobile Menu Script -->
+  <script>
+    const menuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    if (menuBtn && mobileMenu) {
+      menuBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+      });
+    }
+  </script>
+</body>
+</html>
