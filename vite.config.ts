@@ -16,7 +16,6 @@ export default defineConfig(() => {
         input: {
           main: path.resolve(__dirname, 'index.html'),
           about: path.resolve(__dirname, 'about.html'),
-          membership: path.resolve(__dirname, 'membership.html'),
           location: path.resolve(__dirname, 'location.html'),
           contact: path.resolve(__dirname, 'contact.html'),
         },

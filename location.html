@@ -1,16 +1,20 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>عنوان المقر وطرق الوصول | نادي الكلمة توستماسترز</title>
   <link rel="icon" type="image/svg+xml" href="ToastmastersLogo3Color.svg">
-  <meta name="description" content="عنوان مقر نادي الكلمة توستماسترز في مصر الجديدة، خريطة Google Maps المباشرة، مواعيد الاجتماعات، وطرق الوصول بالمواصلات أو بالسيارة">
+  <meta name="description"
+    content="عنوان مقر نادي الكلمة توستماسترز في مصر الجديدة، خريطة Google Maps المباشرة، مواعيد الاجتماعات، وطرق الوصول بالمواصلات أو بالسيارة">
 
   <!-- Google Fonts: Cairo for Arabic & Montserrat / Source Sans 3 for English & Numbers -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Montserrat:wght@500;600;700;800&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Montserrat:wght@500;600;700;800&family=Source+Sans+3:wght@400;600;700&display=swap"
+    rel="stylesheet">
 
   <!-- Tailwind CSS via CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -40,42 +44,54 @@
     }
   </script>
   <style>
-    body { font-family: 'Cairo', sans-serif; }
-    .heading-font { font-family: 'Cairo', 'Montserrat', sans-serif; }
-    .en-font { font-family: 'Montserrat', 'Source Sans 3', sans-serif; }
+    body {
+      font-family: 'Cairo', sans-serif;
+    }
+
+    .heading-font {
+      font-family: 'Cairo', 'Montserrat', sans-serif;
+    }
+
+    .en-font {
+      font-family: 'Montserrat', 'Source Sans 3', sans-serif;
+    }
   </style>
 </head>
-<body class="bg-[#fcfdfd] text-slate-800 antialiased selection:bg-happy-yellow selection:text-loyal-blue flex flex-col min-h-screen">
+
+<body
+  class="bg-[#fcfdfd] text-slate-800 antialiased selection:bg-happy-yellow selection:text-loyal-blue flex flex-col min-h-screen">
 
   <!-- Main Navigation Header -->
   <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md shadow-sm border-b border-slate-200/80">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-20">
-        
+
         <!-- Logo & Brand identity -->
         <a href="/" class="flex items-center gap-3 group focus:outline-none shrink-0">
-          <img src="/ToastmastersLogo3Color.svg" alt="Toastmasters International Logo" class="w-12 h-12 object-contain transition-transform group-hover:scale-105" />
+          <img src="/ToastmastersLogo3Color.svg" alt="Toastmasters International Logo"
+            class="w-12 h-12 object-contain transition-transform group-hover:scale-105" />
           <div class="flex flex-col">
-            <span class="text-xl sm:text-2xl font-black text-loyal-blue heading-font tracking-tight leading-tight">نادي الكلمة توستماسترز</span>
-            <span class="text-xs text-slate-500 font-bold leading-normal">حيث يصنع القادة بلغة الضاد</span>
+            <span class="text-xl sm:text-2xl font-black text-loyal-blue heading-font tracking-tight leading-tight">نادي
+              الكلمة توستماسترز</span>
           </div>
         </a>
 
         <!-- Desktop Navigation Links -->
         <nav class="hidden md:flex items-center gap-1.5 lg:gap-2">
-          <a href="/" class="px-3.5 py-2 rounded-lg text-sm font-semibold text-slate-700 hover:text-loyal-blue hover:bg-slate-100 transition-colors">
+          <a href="/"
+            class="px-3.5 py-2 rounded-lg text-sm font-semibold text-slate-700 hover:text-loyal-blue hover:bg-slate-100 transition-colors">
             الرئيسية
           </a>
-          <a href="about.html" class="px-3.5 py-2 rounded-lg text-sm font-semibold text-slate-700 hover:text-loyal-blue hover:bg-slate-100 transition-colors">
+          <a href="about.html"
+            class="px-3.5 py-2 rounded-lg text-sm font-semibold text-slate-700 hover:text-loyal-blue hover:bg-slate-100 transition-colors">
             من نحن
           </a>
-          <a href="membership.html" class="px-3.5 py-2 rounded-lg text-sm font-semibold text-slate-700 hover:text-loyal-blue hover:bg-slate-100 transition-colors">
-            العضوية والرسوم
-          </a>
-          <a href="location.html" class="px-3.5 py-2 rounded-lg text-sm font-bold text-loyal-blue bg-loyal-blue-light transition-colors">
+          <a href="location.html"
+            class="px-3.5 py-2 rounded-lg text-sm font-bold text-loyal-blue bg-loyal-blue-light transition-colors">
             طرق الوصول
           </a>
-          <a href="contact.html" class="px-3.5 py-2 rounded-lg text-sm font-semibold text-slate-700 hover:text-loyal-blue hover:bg-slate-100 transition-colors">
+          <a href="contact.html"
+            class="px-3.5 py-2 rounded-lg text-sm font-semibold text-slate-700 hover:text-loyal-blue hover:bg-slate-100 transition-colors">
             تواصل معنا
           </a>
         </nav>
@@ -83,45 +99,75 @@
         <!-- Quick WhatsApp Chat & Social Media Links -->
         <div class="hidden sm:flex items-center gap-2">
           <!-- WhatsApp Quick Link -->
-          <a href="https://wa.me/201149861291" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-600 border border-emerald-200 flex items-center justify-center transition shadow-sm hover:scale-105" title="واتساب" aria-label="WhatsApp">
-            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.667-.699c.969.585 1.961.918 2.793.919 3.18 0 5.767-2.587 5.768-5.766.001-3.181-2.585-5.765-5.768-5.765zm0-2.172c4.379 0 7.938 3.559 7.938 7.938 0 4.38-3.559 7.938-7.938 7.938-1.393 0-2.7-.36-3.834-.989l-4.228 1.109 1.127-4.12c-.7-1.187-1.103-2.57-1.103-4.04 0-4.379 3.559-7.936 7.938-7.936z"/></svg>
+          <a href="https://wa.me/201149861291" target="_blank" rel="noopener noreferrer"
+            class="w-10 h-10 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-600 border border-emerald-200 flex items-center justify-center transition shadow-sm hover:scale-105"
+            title="واتساب" aria-label="WhatsApp">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+              <path
+                d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.667-.699c.969.585 1.961.918 2.793.919 3.18 0 5.767-2.587 5.768-5.766.001-3.181-2.585-5.765-5.768-5.765zm0-2.172c4.379 0 7.938 3.559 7.938 7.938 0 4.38-3.559 7.938-7.938 7.938-1.393 0-2.7-.36-3.834-.989l-4.228 1.109 1.127-4.12c-.7-1.187-1.103-2.57-1.103-4.04 0-4.379 3.559-7.936 7.938-7.936z" />
+            </svg>
           </a>
 
           <div class="h-5 w-px bg-slate-200 mx-1"></div>
 
           <!-- Facebook -->
-          <a href="https://www.facebook.com/AlkalemahTMC" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-xl bg-slate-50 hover:bg-loyal-blue hover:text-white text-slate-600 border border-slate-200 flex items-center justify-center transition shadow-sm hover:scale-105" title="فيسبوك" aria-label="Facebook">
-            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"/></svg>
+          <a href="https://www.facebook.com/AlkalemahTMC" target="_blank" rel="noopener noreferrer"
+            class="w-10 h-10 rounded-xl bg-slate-50 hover:bg-loyal-blue hover:text-white text-slate-600 border border-slate-200 flex items-center justify-center transition shadow-sm hover:scale-105"
+            title="فيسبوك" aria-label="Facebook">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+              <path
+                d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z" />
+            </svg>
           </a>
 
           <!-- Instagram -->
-          <a href="https://www.instagram.com/alkalemah.toastmasters.club/" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-xl bg-slate-50 hover:bg-[#E1306C] hover:text-white text-slate-600 border border-slate-200 flex items-center justify-center transition shadow-sm hover:scale-105" title="إنستغرام" aria-label="Instagram">
-            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          <a href="https://www.instagram.com/alkalemah.toastmasters.club/" target="_blank" rel="noopener noreferrer"
+            class="w-10 h-10 rounded-xl bg-slate-50 hover:bg-[#E1306C] hover:text-white text-slate-600 border border-slate-200 flex items-center justify-center transition shadow-sm hover:scale-105"
+            title="إنستغرام" aria-label="Instagram">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+              <path
+                d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+            </svg>
           </a>
 
           <!-- LinkedIn -->
-          <a href="https://www.linkedin.com/company/toastmastersbelarabiclub" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-xl bg-slate-50 hover:bg-[#0A66C2] hover:text-white text-slate-600 border border-slate-200 flex items-center justify-center transition shadow-sm hover:scale-105" title="لينكدإن" aria-label="LinkedIn">
-            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+          <a href="https://www.linkedin.com/company/toastmastersbelarabiclub" target="_blank" rel="noopener noreferrer"
+            class="w-10 h-10 rounded-xl bg-slate-50 hover:bg-[#0A66C2] hover:text-white text-slate-600 border border-slate-200 flex items-center justify-center transition shadow-sm hover:scale-105"
+            title="لينكدإن" aria-label="LinkedIn">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+              <path
+                d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+            </svg>
           </a>
         </div>
 
         <!-- Mobile Menu Toggle Button -->
-        <button id="mobile-menu-btn" type="button" class="md:hidden p-2.5 rounded-lg text-slate-700 hover:bg-slate-100 focus:outline-none" aria-label="القائمة">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/></svg>
+        <button id="mobile-menu-btn" type="button"
+          class="md:hidden p-2.5 rounded-lg text-slate-700 hover:bg-slate-100 focus:outline-none" aria-label="القائمة">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+          </svg>
         </button>
       </div>
 
       <!-- Mobile Dropdown Navigation -->
       <div id="mobile-menu" class="hidden md:hidden py-4 border-t border-slate-200">
         <div class="flex flex-col gap-2">
-          <a href="/" class="px-3 py-2 rounded-lg text-base font-semibold text-slate-700 hover:bg-slate-100">الرئيسية</a>
-          <a href="about.html" class="px-3 py-2 rounded-lg text-base font-semibold text-slate-700 hover:bg-slate-100">من نحن</a>
-          <a href="membership.html" class="px-3 py-2 rounded-lg text-base font-semibold text-slate-700 hover:bg-slate-100">العضوية والرسوم</a>
-          <a href="location.html" class="px-3 py-2 rounded-lg text-base font-bold text-loyal-blue bg-loyal-blue-light">طرق الوصول</a>
-          <a href="contact.html" class="px-3 py-2 rounded-lg text-base font-semibold text-slate-700 hover:bg-slate-100">تواصل معنا</a>
+          <a href="/"
+            class="px-3 py-2 rounded-lg text-base font-semibold text-slate-700 hover:bg-slate-100">الرئيسية</a>
+          <a href="about.html" class="px-3 py-2 rounded-lg text-base font-semibold text-slate-700 hover:bg-slate-100">من
+            نحن</a>
+          <a href="location.html"
+            class="px-3 py-2 rounded-lg text-base font-bold text-loyal-blue bg-loyal-blue-light">طرق الوصول</a>
+          <a href="contact.html"
+            class="px-3 py-2 rounded-lg text-base font-semibold text-slate-700 hover:bg-slate-100">تواصل معنا</a>
           <div class="pt-2 border-t border-slate-100">
-            <a href="https://wa.me/201149861291" target="_blank" rel="noopener noreferrer" class="w-full text-center py-2.5 px-4 rounded-lg font-bold bg-emerald-600 text-white flex items-center justify-center gap-2">
-              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.667-.699c.969.585 1.961.918 2.793.919 3.18 0 5.767-2.587 5.768-5.766.001-3.181-2.585-5.765-5.768-5.765zm0-2.172c4.379 0 7.938 3.559 7.938 7.938 0 4.38-3.559 7.938-7.938 7.938-1.393 0-2.7-.36-3.834-.989l-4.228 1.109 1.127-4.12c-.7-1.187-1.103-2.57-1.103-4.04 0-4.379 3.559-7.936 7.938-7.936z"/></svg>
+            <a href="https://wa.me/201149861291" target="_blank" rel="noopener noreferrer"
+              class="w-full text-center py-2.5 px-4 rounded-lg font-bold bg-emerald-600 text-white flex items-center justify-center gap-2">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path
+                  d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.667-.699c.969.585 1.961.918 2.793.919 3.18 0 5.767-2.587 5.768-5.766.001-3.181-2.585-5.765-5.768-5.765zm0-2.172c4.379 0 7.938 3.559 7.938 7.938 0 4.38-3.559 7.938-7.938 7.938-1.393 0-2.7-.36-3.834-.989l-4.228 1.109 1.127-4.12c-.7-1.187-1.103-2.57-1.103-4.04 0-4.379 3.559-7.936 7.938-7.936z" />
+              </svg>
               <span>محادثة فورية عبر واتساب</span>
             </a>
           </div>
@@ -131,12 +177,18 @@
   </header>
 
   <!-- 1. هيدر الصفحة (Hero Section): مباشر وموجز ومحدد بدقة -->
-  <section class="bg-gradient-to-b from-loyal-blue via-loyal-blue to-loyal-blue-dark text-white py-10 sm:py-12 relative overflow-hidden">
-    <div class="absolute top-0 right-0 w-64 h-64 bg-happy-yellow/10 rounded-full blur-3xl pointer-events-none -mr-16 -mt-16"></div>
-    <div class="absolute bottom-0 left-0 w-64 h-64 bg-true-maroon/20 rounded-full blur-2xl pointer-events-none -ml-16 -mb-16"></div>
+  <section
+    class="bg-gradient-to-b from-loyal-blue via-loyal-blue to-loyal-blue-dark text-white py-10 sm:py-12 relative overflow-hidden">
+    <div
+      class="absolute top-0 right-0 w-64 h-64 bg-happy-yellow/10 rounded-full blur-3xl pointer-events-none -mr-16 -mt-16">
+    </div>
+    <div
+      class="absolute bottom-0 left-0 w-64 h-64 bg-true-maroon/20 rounded-full blur-2xl pointer-events-none -ml-16 -mb-16">
+    </div>
 
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 space-y-3">
-      <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/10 border border-white/20 text-happy-yellow text-xs font-semibold">
+      <div
+        class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/10 border border-white/20 text-happy-yellow text-xs font-semibold">
         <span class="w-2 h-2 rounded-full bg-happy-yellow"></span>
         <span>نادي الكلمة توستماسترز • مصر الجديدة</span>
       </div>
@@ -152,231 +204,100 @@
   </section>
 
   <main class="flex-grow">
-    
-    <!-- 2. كروت المعلومات السريعة (Quick Info Cards): شريط متناسق وواضح -->
-    <section class="py-8 sm:py-10 bg-white border-b border-slate-200/80">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-5 items-stretch">
-          
-          <!-- Card 1: الموقع الدقيق -->
-          <div class="p-5 sm:p-6 rounded-2xl bg-slate-50/80 border border-slate-200 flex flex-col justify-between hover:border-loyal-blue/40 transition shadow-xs">
-            <div class="flex items-start gap-3.5">
-              <div class="w-11 h-11 rounded-xl bg-loyal-blue text-happy-yellow flex items-center justify-center shrink-0 shadow-xs">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-              </div>
-              <div class="space-y-1">
-                <span class="text-xs font-bold text-slate-500 uppercase tracking-wider block">الموقع الدقيق</span>
-                <h3 class="font-black text-loyal-blue text-base sm:text-lg heading-font leading-snug">eSpaces - شارع الثورة</h3>
-                <p class="text-xs text-slate-600 leading-relaxed">
-                  مصر الجديدة، القاهرة (داخل مول The Hive).
-                </p>
-              </div>
-            </div>
-            <div class="mt-4 pt-3 border-t border-slate-200/80 flex items-center justify-between text-xs text-loyal-blue font-semibold">
-              <span>علامة مميزة: مول The Hive</span>
-              <span class="text-slate-400">القاهرة</span>
-            </div>
-          </div>
+    <!-- قسم طرق الوصول وموقع المقر -->
+    <section class="py-12 sm:py-16 bg-[#f8fafc] w-full">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
 
-          <!-- Card 2: الموعد والتوقيت -->
-          <div class="p-5 sm:p-6 rounded-2xl bg-slate-50/80 border border-slate-200 flex flex-col justify-between hover:border-true-maroon/40 transition shadow-xs">
-            <div class="flex items-start gap-3.5">
-              <div class="w-11 h-11 rounded-xl bg-true-maroon text-white flex items-center justify-center shrink-0 shadow-xs">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-              </div>
-              <div class="space-y-1">
-                <span class="text-xs font-bold text-true-maroon uppercase tracking-wider block">أيام وتوقيت الاجتماعات</span>
-                <h3 class="font-black text-slate-800 text-base sm:text-lg heading-font leading-snug">السبت 1 و 3 شهرياً</h3>
-                <p class="text-xs text-slate-600 leading-relaxed font-medium">
-                  الحضور: <strong class="text-slate-900 font-bold">6:45 م</strong> • الاجتماع: <strong class="text-slate-900 font-bold">7:00 م - 10:00 م</strong>
-                </p>
-              </div>
-            </div>
-            <div class="mt-4 pt-3 border-t border-slate-200/80 flex items-center justify-between text-xs">
-              <span class="font-bold text-true-maroon bg-true-maroon-light px-2 py-0.5 rounded">السبت الأول والثالث</span>
-              <span class="text-slate-500 font-medium">اجتماع نصف شهري</span>
-            </div>
-          </div>
+        <!-- الكروت العلوية: الموقع والدقيق + أيام وتوقيت الاجتماعات (عمودان متساويان) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-          <!-- Card 3: رابط جروب الواتساب للاستقبال والاستفسار -->
-          <div class="p-5 sm:p-6 rounded-2xl bg-emerald-50/60 border border-emerald-200 flex flex-col justify-between hover:border-emerald-400 transition shadow-xs">
-            <div class="flex items-start gap-3.5">
-              <div class="w-11 h-11 rounded-xl bg-emerald-600 text-white flex items-center justify-center shrink-0 shadow-xs">
-                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.667-.699c.969.585 1.961.918 2.793.919 3.18 0 5.767-2.587 5.768-5.766.001-3.181-2.585-5.765-5.768-5.765zm0-2.172c4.379 0 7.938 3.559 7.938 7.938 0 4.38-3.559 7.938-7.938 7.938-1.393 0-2.7-.36-3.834-.989l-4.228 1.109 1.127-4.12c-.7-1.187-1.103-2.57-1.103-4.04 0-4.379 3.559-7.936 7.938-7.936z"/></svg>
-              </div>
-              <div class="space-y-1">
-                <span class="text-xs font-bold text-emerald-800 uppercase tracking-wider block">فريق الاستقبال وأمين المراسم</span>
-                <h3 class="font-black text-emerald-950 text-base sm:text-lg heading-font leading-snug">
-                  جروب مجتمع الواتساب
-                </h3>
-                <p class="text-xs text-slate-600 leading-relaxed">
-                  متاح لجميع الضيوف الانضمام وطرح أي استفسار حول اللقاء أو تفاصيل الوصول.
-                </p>
-              </div>
-            </div>
-            <div class="mt-4 pt-3 border-t border-emerald-200/80">
-              <a href="https://chat.whatsapp.com/JutO99rTDXVLIHSwLbWPZO" target="_blank" rel="noopener noreferrer" class="w-full py-2.5 px-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition shadow-xs">
-                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.667-.699c.969.585 1.961.918 2.793.919 3.18 0 5.767-2.587 5.768-5.766.001-3.181-2.585-5.765-5.768-5.765zm0-2.172c4.379 0 7.938 3.559 7.938 7.938 0 4.38-3.559 7.938-7.938 7.938-1.393 0-2.7-.36-3.834-.989l-4.228 1.109 1.127-4.12c-.7-1.187-1.103-2.57-1.103-4.04 0-4.379 3.559-7.936 7.938-7.936z"/></svg>
-                <span>انضم لجروب الواتساب للاستفسار</span>
-              </a>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-    </section>
-
-    <!-- 3. قسم الخريطة ودليل الوصول (Map & Directions Split Section) - Grid من عمودين متكاملين -->
-    <section class="py-12 sm:py-16 bg-[#f8fafc]">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
-          
-          <!-- العمود الأول (الخريطة المباشرة + زر فتح خرائط جوجل) -->
-          <div class="lg:col-span-6 bg-white rounded-3xl p-5 sm:p-6 shadow-sm border border-slate-200 flex flex-col justify-between">
+          <!-- الكارت الأول: الموقع الدقيق -->
+          <div
+            class="bg-white p-6 sm:p-7 rounded-3xl border border-slate-200/90 shadow-sm hover:shadow-md transition flex flex-col justify-between">
             <div>
-              <!-- Header -->
-              <div class="flex items-center justify-between pb-3.5 border-b border-slate-100">
-                <div class="flex items-center gap-2">
-                  <span class="w-3 h-3 rounded-full bg-true-maroon"></span>
-                  <h3 class="font-bold text-slate-800 text-sm sm:text-base">موقع المقر على Google Maps</h3>
+              <div class="flex items-center justify-between mb-4">
+                <span class="text-xs font-bold text-loyal-blue bg-loyal-blue-light px-3 py-1 rounded-full">الموقع</span>
+                <div class="w-10 h-10 rounded-xl bg-loyal-blue text-white flex items-center justify-center font-bold">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
                 </div>
-                <span class="text-xs text-slate-500 font-medium">eSpaces - الثورة</span>
               </div>
 
-              <!-- Embedded Interactive Google Map -->
-              <div class="w-full h-80 sm:h-96 rounded-2xl overflow-hidden mt-4 relative border border-slate-200 bg-slate-100 shadow-inner">
-                <iframe 
-                  title="موقع نادي الكلمة توستماسترز - eSpaces شارع الثورة"
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3452.1245!2d31.3325!3d30.0885!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14583e07f23c7b7f%3A0x7d6a59bdfa0a7522!2sAl%20Thawra%20St%2C%20Heliopolis%2C%20Cairo%20Governorate%2C%20Egypt!5e0!3m2!1sen!2seg!4v1700000000000!5m2!1sen!2seg" 
-                  class="w-full h-full border-0" 
-                  allowfullscreen="" 
-                  loading="lazy" 
-                  referrerpolicy="no-referrer-when-downgrade">
-                </iframe>
-              </div>
-
-              <p class="text-xs text-slate-500 mt-3 leading-relaxed">
-                📍 <strong>العنوان:</strong> eSpaces، داخل مول The Hive، شارع الثورة، مصر الجديدة، القاهرة.
+              <h3 class="text-xl font-black text-loyal-blue heading-font mb-2">eSpaces - شارع الثورة</h3>
+              <p class="text-xs sm:text-sm text-slate-600 leading-relaxed mb-4">
+                مصر الجديدة، القاهرة (داخل مول The Hive).
               </p>
             </div>
 
-            <!-- زر واضح ومباشر: افتح المقر في تطبيق Google Maps -->
-            <div class="pt-5 mt-4 border-t border-slate-100">
-              <a href="https://maps.app.goo.gl/MYCYBjRPv3QTx4gw5" target="_blank" rel="noopener noreferrer" class="w-full py-3.5 px-4 rounded-xl font-bold bg-loyal-blue hover:bg-loyal-blue-dark text-white text-center flex items-center justify-center gap-2 text-sm sm:text-base shadow-sm hover:shadow transition transform active:scale-98">
-                <svg class="w-5 h-5 text-happy-yellow shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                <span>افتح المقر في تطبيق Google Maps</span>
-              </a>
+            <div class="pt-4 border-t border-slate-100 flex flex-wrap gap-2 text-[11px] font-bold text-slate-400">
+              <span class="bg-slate-100 px-2.5 py-1 rounded-md">القاهرة</span>
+              <span class="bg-slate-100 px-2.5 py-1 rounded-md">علامة مميزة: مول The Hive</span>
             </div>
           </div>
 
-          <!-- العمود الثاني (خطوات ودليل الوصول) -->
-          <div class="lg:col-span-6 bg-white rounded-3xl p-6 sm:p-7 shadow-sm border border-slate-200 flex flex-col justify-between">
+          <!-- الكارت الثاني: أيام وتوقيت الاجتماعات -->
+          <div
+            class="bg-white p-6 sm:p-7 rounded-3xl border border-slate-200/90 shadow-sm hover:shadow-md transition flex flex-col justify-between">
             <div>
-              
-              <!-- Section Header -->
-              <div class="mb-5">
-                <span class="text-xs font-bold text-true-maroon uppercase tracking-wider bg-true-maroon-light px-3 py-1 rounded-full inline-block mb-1.5">
-                  إرشادات الضيوف
-                </span>
-                <h2 class="text-xl sm:text-2xl font-black text-loyal-blue heading-font">
-                  دليل وصول الضيوف إلى الاجتماع
-                </h2>
-                <p class="text-xs sm:text-sm text-slate-600 mt-1 leading-relaxed">
-                  كل ما تحتاج لمعرفته لضمان وصول سلس وسريع بدون أي تأخير:
-                </p>
+              <div class="flex items-center justify-between mb-4">
+                <span class="text-xs font-bold text-true-maroon bg-true-maroon-light px-3 py-1 rounded-full">أيام وتوقيت
+                  الاجتماعات</span>
+                <div class="w-10 h-10 rounded-xl bg-true-maroon text-white flex items-center justify-center font-bold">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
               </div>
 
-              <!-- 3 Core Steps Requested -->
-              <div class="space-y-4">
-                
-                <!-- 1. توقيت الحضور -->
-                <div class="p-4 rounded-2xl bg-amber-50/70 border border-amber-200/90 flex items-start gap-3.5">
-                  <div class="w-9 h-9 rounded-xl bg-amber-200 text-amber-900 font-black text-sm flex items-center justify-center shrink-0">
-                    1
-                  </div>
-                  <div class="space-y-1">
-                    <div class="flex items-center gap-2 flex-wrap">
-                      <h4 class="font-bold text-slate-900 text-sm sm:text-base">توقيت الحضور</h4>
-                      <span class="text-xs font-black text-amber-900 bg-amber-200/80 px-2.5 py-0.5 rounded-full">
-                        الحضور 6:50 م
-                      </span>
-                    </div>
-                    <p class="text-xs text-slate-700 leading-relaxed">
-                      يبدأ الاجتماع في تمام الساعة 7:00 م حتى 10:00 م. يرجى الحضور الساعة <strong>6:50 م</strong> لاستقبالك وتسجيل الحضور واستلام بطاقة التعريف واختيار مقعد مناسب قبل بدء فقرات اللقاء.
-                    </p>
-                  </div>
-                </div>
-
-                <!-- 2. المواصلات العامة -->
-                <div class="p-4 rounded-2xl bg-emerald-50/60 border border-emerald-200 flex items-start gap-3.5">
-                  <div class="w-9 h-9 rounded-xl bg-emerald-600 text-white font-black text-sm flex items-center justify-center shrink-0">
-                    2
-                  </div>
-                  <div class="space-y-2 flex-grow">
-                    <h4 class="font-bold text-slate-900 text-sm sm:text-base">المواصلات العامة</h4>
-                    <p class="text-xs text-slate-700 leading-relaxed">
-                      أقرب محطات لمقر eSpaces هي محطات الخط الثالث لمترو الأنفاق (محطة كلية البنات أو محطة الأهرام)، ومنها مسافة قصيرة بالمواصلات لشارع الثورة.
-                    </p>
-                    
-                    <!-- Required WhatsApp assistance prompt -->
-                    <div class="pt-1">
-                      <a href="https://chat.whatsapp.com/JutO99rTDXVLIHSwLbWPZO" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold transition shadow-xs">
-                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.667-.699c.969.585 1.961.918 2.793.919 3.18 0 5.767-2.587 5.768-5.766.001-3.181-2.585-5.765-5.768-5.765zm0-2.172c4.379 0 7.938 3.559 7.938 7.938 0 4.38-3.559 7.938-7.938 7.938-1.393 0-2.7-.36-3.834-.989l-4.228 1.109 1.127-4.12c-.7-1.187-1.103-2.57-1.103-4.04 0-4.379 3.559-7.936 7.938-7.936z"/></svg>
-                        <span>تواصل معنا على جروب الواتس لمساعدتك في تحديد أنسب مواصلة لك</span>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- 3. السيارة والباركينج -->
-                <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex items-start gap-3.5">
-                  <div class="w-9 h-9 rounded-xl bg-loyal-blue text-happy-yellow font-black text-sm flex items-center justify-center shrink-0">
-                    3
-                  </div>
-                  <div class="space-y-1">
-                    <h4 class="font-bold text-slate-900 text-sm sm:text-base">السيارة والباركينج</h4>
-                    <p class="text-xs text-slate-700 leading-relaxed">
-                      يتوفر <strong>موقف سيارات مدفوع في المول</strong>، بالإضافة إلى <strong>ركنات مجانية في شارع الشهيد إبراهيم الشيخ</strong> بجوار المقر مباشرة.
-                    </p>
-                  </div>
-                </div>
-
-              </div>
+              <h3 class="text-xl font-black text-slate-800 heading-font mb-2">السبت 1 و 3 شهرياً</h3>
+              <p class="text-xs sm:text-sm text-slate-600 leading-relaxed mb-4">
+                الحضور: <strong class="text-slate-800">6:45 م</strong> • الاجتماع: <strong class="text-slate-800">7:00 م
+                  - 10:00 م</strong>
+              </p>
             </div>
 
-            <!-- Helpful note at bottom of directions card -->
-            <div class="mt-5 pt-3.5 border-t border-slate-100 flex items-center gap-2.5 text-xs text-slate-500">
-              <svg class="w-4 h-4 text-emerald-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-              <span>القاعة مكيفة ومجهزة بالكامل، وفريق الاستقبال متواجد بالمدخل لمساعدتك فور وصولك.</span>
+            <div class="pt-4 border-t border-slate-100 flex flex-wrap gap-2 text-[11px] font-bold text-slate-400">
+              <span class="bg-slate-100 px-2.5 py-1 rounded-md">السبت الأول والثالث</span>
+              <span class="bg-slate-100 px-2.5 py-1 rounded-md">اجتماع نصف شهري</span>
             </div>
-
           </div>
 
         </div>
 
+        <!-- كارت الخريطة التفاعلية بعرض العرض كاملاً في الأسفل -->
+        <div class="bg-white p-4 sm:p-6 rounded-3xl border border-slate-200/90 shadow-sm w-full">
+          <div class="flex items-center justify-between mb-4 px-2">
+            <div class="flex items-center gap-2">
+              <span class="w-3 h-3 rounded-full bg-true-maroon inline-block"></span>
+              <h3 class="text-lg font-black text-slate-800 heading-font">موقع المقر على Google Maps</h3>
+            </div>
+            <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer"
+              class="text-xs font-bold text-loyal-blue hover:underline flex items-center gap-1">
+              <span>فتح في الخرائط</span>
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+              </svg>
+            </a>
+          </div>
+
+          <!-- full map preview -->
+          <div class="w-full h-80 sm:h-96 rounded-2xl overflow-hidden border border-slate-200">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3452.4813097316337!2d31.347850181819467!3d30.08039901020107!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14583f2eab32ca2b%3A0xd7280a61b92e9e60!2sEspaces%20-%20Thawra%20St.!5e0!3m2!1sen!2seg!4v1789059070011!5m2!1sen!2seg" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+          </div>
+        </div>
+
       </div>
     </section>
 
-    <!-- Bottom Quick Link to Membership & Guest Pass -->
-    <section class="py-8 bg-white border-t border-slate-200/80">
-      <div class="max-w-4xl mx-auto px-4 text-center space-y-3">
-        <h3 class="text-lg sm:text-xl font-bold text-loyal-blue heading-font">
-          هل تود معرفة تفاصيل الحضور ورسوم بطاقة الضيف؟
-        </h3>
-        <p class="text-xs sm:text-sm text-slate-600">
-          حضور الاجتماع كضيف متاح للجميع برسم رمزي بسيط (150 ج.م) وبدون أي التزام أو اشتراك مسبق.
-        </p>
-        <div class="pt-2 flex flex-wrap justify-center gap-3">
-          <a href="https://chat.whatsapp.com/JutO99rTDXVLIHSwLbWPZO" target="_blank" rel="noopener noreferrer" class="px-5 py-2.5 rounded-xl font-bold bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-300 text-xs sm:text-sm transition flex items-center gap-1.5">
-            <svg class="w-4 h-4 text-emerald-600" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.667-.699c.969.585 1.961.918 2.793.919 3.18 0 5.767-2.587 5.768-5.766.001-3.181-2.585-5.765-5.768-5.765zm0-2.172c4.379 0 7.938 3.559 7.938 7.938 0 4.38-3.559 7.938-7.938 7.938-1.393 0-2.7-.36-3.834-.989l-4.228 1.109 1.127-4.12c-.7-1.187-1.103-2.57-1.103-4.04 0-4.379 3.559-7.936 7.938-7.936z"/></svg>
-            <span>استفسر عبر جروب الواتساب</span>
-          </a>
-        </div>
-      </div>
-    </section>
+
+
+
 
   </main>
 
@@ -384,10 +305,11 @@
   <footer class="bg-[#00273d] text-slate-300 py-10 border-t-4 border-happy-yellow">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex flex-col md:flex-row items-center justify-between gap-6 pb-8 border-b border-slate-700/60">
-        
+
         <!-- Logo & Title -->
         <div class="flex items-center gap-3">
-          <img src="/ToastmastersLogo3Color.svg" alt="Toastmasters International Logo" class="w-11 h-11 object-contain" />
+          <img src="/ToastmastersLogo3Color.svg" alt="Toastmasters International Logo"
+            class="w-11 h-11 object-contain" />
           <div>
             <span class="text-lg font-black text-white heading-font block">نادي الكلمة توستماسترز</span>
             <span class="text-xs text-happy-yellow font-medium">أول نادٍ عربي للخطابة في مصر • تأسس بالقاهرة</span>
@@ -398,7 +320,6 @@
         <nav class="flex flex-wrap items-center justify-center gap-5 sm:gap-7 text-sm font-medium">
           <a href="/" class="hover:text-happy-yellow transition">الرئيسية</a>
           <a href="about.html" class="hover:text-happy-yellow transition">من نحن</a>
-          <a href="membership.html" class="hover:text-happy-yellow transition">العضوية والرسوم</a>
           <a href="location.html" class="text-happy-yellow font-bold transition">طرق الوصول</a>
           <a href="contact.html" class="hover:text-happy-yellow transition">تواصل معنا</a>
         </nav>
@@ -407,10 +328,12 @@
       <!-- Legal Disclaimer & Copyright -->
       <div class="pt-6 text-center space-y-2.5 text-xs text-slate-400">
         <p class="max-w-3xl mx-auto leading-relaxed en-font" dir="ltr">
-          "The information on this website is for the sole use of Toastmasters' members, for Toastmasters business only. It is not to be used for solicitation and distribution of non-Toastmasters material or information."
+          "The information on this website is for the sole use of Toastmasters' members, for Toastmasters business only.
+          It is not to be used for solicitation and distribution of non-Toastmasters material or information."
         </p>
         <p>
-          جميع الحقوق محفوظة © نادي الكلمة توستماسترز • تابع لمنظمة التوستماسترز العالمية (<span class="en-font">Toastmasters International</span>)
+          جميع الحقوق محفوظة © نادي الكلمة توستماسترز • تابع لمنظمة التوستماسترز العالمية (<span
+            class="en-font">Toastmasters International</span>)
         </p>
       </div>
     </div>
@@ -427,4 +350,5 @@
     }
   </script>
 </body>
+
 </html>
