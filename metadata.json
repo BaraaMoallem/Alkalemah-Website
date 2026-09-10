@@ -1,6 +1,6 @@
 {
-  "name": "AlKalemah Toastmasters Club",
-  "description": "الموقع الرسمي لنادي الكلمة توستمساترز (AlKalemah Toastmasters Club) في القاهرة، مصر - أول نادٍ للخطابة باللغة العربية لتطوير مهارات التحدث والتواصل والقيادة.",
+  "name": "نادي الكلمة توستماسترز",
+  "description": "نادي تعليمي لتطوير مهارات الخطابة والتحدث أمام الجمهور والقيادة في بيئة داعمة",
   "requestFramePermissions": [],
   "majorCapabilities": [
     "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"

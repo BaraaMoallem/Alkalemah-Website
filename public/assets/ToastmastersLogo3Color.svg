@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%">
+  <!-- Toastmasters International Official 3-Color Logo -->
+  <defs>
+    <clipPath id="globe-clip">
+      <circle cx="200" cy="200" r="150" />
+    </clipPath>
+  </defs>
+  
+  <!-- Outer Maroon Ring -->
+  <circle cx="200" cy="200" r="162" fill="none" stroke="#772432" stroke-width="12" />
+  
+  <!-- Yellow Ring -->
+  <circle cx="200" cy="200" r="153" fill="none" stroke="#F2DF74" stroke-width="6" />
+  
+  <!-- Loyal Blue Globe Background -->
+  <circle cx="200" cy="200" r="150" fill="#004165" />
+  
+  <!-- Globe Lines (Latitude & Longitude Grid in white, clipped to globe) -->
+  <g clip-path="url(#globe-clip)" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-miterlimit="10">
+    <!-- Longitudinal curves -->
+    <ellipse cx="200" cy="200" rx="150" ry="150" />
+    <ellipse cx="200" cy="200" rx="110" ry="150" />
+    <ellipse cx="200" cy="200" rx="60" ry="150" />
+    <line x1="200" y1="50" x2="200" y2="350" />
+    
+    <!-- Angled Latitudinal ellipses characteristic of TM globe -->
+    <ellipse cx="200" cy="120" rx="125" ry="40" transform="rotate(-15 200 120)" />
+    <ellipse cx="200" cy="170" rx="148" ry="46" transform="rotate(-15 200 170)" />
+    <ellipse cx="200" cy="230" rx="148" ry="46" transform="rotate(-15 200 230)" />
+    <ellipse cx="200" cy="280" rx="125" ry="40" transform="rotate(-15 200 280)" />
+  </g>
+  
+  <!-- Central White Banner with True Maroon Border -->
+  <rect x="5" y="152" width="390" height="96" fill="#FFFFFF" stroke="#772432" stroke-width="8" rx="2" />
+  
+  <!-- TOASTMASTERS Wordmark (Loyal Blue, bold Gotham/Montserrat style) -->
+  <text x="200" y="206" font-family="'Montserrat', 'Gotham', 'Arial Black', sans-serif" font-size="34" font-weight="900" fill="#004165" text-anchor="middle" letter-spacing="2.5">TOASTMASTERS</text>
+  
+  <!-- INTERNATIONAL Subtitle (True Maroon, tracked) -->
+  <text x="195" y="234" font-family="'Montserrat', 'Gotham', 'Arial', sans-serif" font-size="18.5" font-weight="700" fill="#772432" text-anchor="middle" letter-spacing="5.5">INTERNATIONAL</text>
+  <text x="333" y="226" font-family="'Montserrat', sans-serif" font-size="8" font-weight="700" fill="#772432">®</text>
+</svg>
