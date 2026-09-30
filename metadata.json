@@ -1,8 +1,6 @@
 {
   "name": "نادي الكلمة توستماسترز",
-  "description": "نادي تعليمي لتطوير مهارات الخطابة والتحدث أمام الجمهور والقيادة في بيئة داعمة",
+  "description": "نادي لتطوير مهارات الخطابة والتحدث أمام الجمهور في بيئة آمنة وداعمة",
   "requestFramePermissions": [],
-  "majorCapabilities": [
-    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
-  ]
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

@@ -1,1 +1,62 @@
 @import "tailwindcss";
+@source "../*.html";
+
+@theme {
+  --color-loyal-blue: #004165;
+  --color-loyal-blue-dark: #00273d;
+  --color-loyal-blue-light: #e8f2f8;
+  --color-true-maroon: #772432;
+  --color-true-maroon-dark: #521721;
+  --color-true-maroon-light: #faebed;
+  --color-cool-gray: #a9b2b1;
+  --color-cool-gray-light: #f4f6f6;
+  --color-happy-yellow: #f2df74;
+  --color-happy-yellow-dark: #d8c24f;
+  --font-sans: "Cairo", "Source Sans 3", sans-serif;
+  --font-cairo: "Cairo", sans-serif;
+  --font-montserrat: "Montserrat", sans-serif;
+}
+
+body { font-family: "Cairo", sans-serif; }
+.heading-font { font-family: "Cairo", "Montserrat", sans-serif; }
+.en-font { font-family: "Montserrat", "Source Sans 3", sans-serif; }
+
+:focus-visible {
+  outline: 3px solid #f2df74;
+  outline-offset: 3px;
+  box-shadow: 0 0 0 6px #772432;
+}
+
+.skip-link {
+  position: fixed;
+  z-index: 100;
+  top: .75rem;
+  right: .75rem;
+  padding: .65rem 1rem;
+  border-radius: .75rem;
+  background: #f2df74;
+  color: #00273d;
+  font-weight: 700;
+  transform: translateY(-200%);
+}
+.skip-link:focus { transform: translateY(0); }
+
+.floating-whatsapp {
+  position: fixed;
+  z-index: 50;
+  left: max(1rem, env(safe-area-inset-left));
+  bottom: max(1rem, env(safe-area-inset-bottom));
+  display: flex;
+  width: 3.25rem;
+  height: 3.25rem;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #fff;
+  border-radius: 9999px;
+  background: #059669;
+  color: #fff;
+  box-shadow: 0 4px 16px #00273d40;
+}
+.floating-whatsapp:hover { background: #047857; }
+.floating-whatsapp svg { width: 1.5rem; height: 1.5rem; }
+footer { padding-bottom: max(4rem, env(safe-area-inset-bottom)); }
