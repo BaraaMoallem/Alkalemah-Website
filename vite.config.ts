@@ -8,6 +8,7 @@ export default defineConfig({
       input: {
         main: 'index.html',
         about: 'about.html',
+        meetings: 'meetings.html',
         location: 'location.html',
         contact: 'contact.html',
       },
