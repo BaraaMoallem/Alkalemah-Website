@@ -12,7 +12,7 @@ This is the existing Arabic, RTL, multi-page Vite website. Run `npm install`, th
 
 Adding, editing, cancelling, or removing a meeting in Google Calendar updates the website automatically. Repeating meetings are expanded into occurrences. The endpoint caches successful responses at the CDN for five minutes, and an open browser tab refetches every five minutes. The homepage counts down to the earliest real event, shows “in progress” from its start until its end, then advances. The normal first and third Saturday schedule and usual venue remain visible as guidance. If the calendar returns no upcoming events, the site says that no next date has been announced; it never invents one. If loading fails, the site instead says the date cannot currently be loaded and points guests to WhatsApp.
 
-Meeting events should have a timed start and end (not an all-day entry), a title, and the actual location. Google Calendar event times include their time-zone offset; the website formats them in Cairo time. The current WhatsApp guest-booking link remains the booking flow. The Meetings page provides Google Calendar and `.ics` additions for each actual event.
+Meeting events should have a timed start and end (not an all-day entry), a title, and the actual location. Google Calendar event times include their time-zone offset; the website formats them in Cairo time. The Meetings page features the next meeting with its countdown, shows later meetings in a monthly calendar and chronological agenda, and offers Google Calendar and `.ics` additions. Its community invitation uses the same WhatsApp group link as the rest of the site; direct private contact remains available elsewhere for questions.
 
 ## Local testing
 

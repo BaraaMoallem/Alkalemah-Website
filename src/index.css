@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @source "../*.html";
+@source "./calendar.js";
 
 @theme {
   --color-loyal-blue: #004165;

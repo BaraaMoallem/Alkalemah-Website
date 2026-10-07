@@ -2,7 +2,8 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync, existsSync } from 'node:fs';
 import handler from '../api/calendar-events.js';
-import { selectCurrentEvent, countdownText, formatEventTime, googleCalendarUrl, icsContent } from '../src/calendar.js';
+import { selectCurrentEvent, countdownText, formatEventTime, googleCalendarUrl, icsContent,
+  cairoDateKey, calendarMonthDays } from '../src/calendar.js';
 
 const first = {
   id: 'first', title: 'Alkalemah meeting', description: 'Guests welcome',
@@ -33,6 +34,24 @@ test('formats Cairo time independently of the viewer and makes real calendar fil
   assert.match(ics, /DTSTART:20261003T160000Z/);
   assert.match(ics, /DTEND:20261003T190000Z/);
   assert.match(ics, /BEGIN:VEVENT\r\n/);
+});
+
+test('Cairo dates determine the correct Saturday-first calendar weeks', () => {
+  assert.equal(cairoDateKey('2027-01-31T22:30:00Z'), '2027-02-01');
+  const october = calendarMonthDays(2026, 10);
+  assert.deepEqual(october.slice(0, 7), [null, null, null, null, null, 1, 2]);
+  assert.equal(october.filter(Boolean).length, 31);
+  assert.equal(october.length % 7, 0);
+  assert.equal(calendarMonthDays(2028, 2).filter(Boolean).length, 29);
+});
+
+test('meeting UI uses the community invitation without embedding a private booking link', () => {
+  const source = readFileSync(new URL('../src/calendar.js', import.meta.url), 'utf8');
+  assert.match(source, /const COMMUNITY_URL = 'https:\/\/chat\.whatsapp\.com\//);
+  assert.match(source, /انضم إلى مجتمع واتساب/);
+  assert.doesNotMatch(source, /wa\.me\//);
+  const page = readFileSync(new URL('../meetings.html', import.meta.url), 'utf8');
+  assert.doesNotMatch(page, /احجز حضورك كضيف/);
 });
 
 function responseMock() {
