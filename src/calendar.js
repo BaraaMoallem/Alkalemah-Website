@@ -1,3 +1,5 @@
+import { registrationButton, registrationCount } from './registration.js';
+
 const ZONE = 'Africa/Cairo';
 const CLUB_URL = 'https://www.alkalemah.club/';
 const COMMUNITY_URL = 'https://chat.whatsapp.com/JutO99rTDXVLIHSwLbWPZO';
@@ -160,6 +162,9 @@ function renderHome(root, events) {
   const countdown = paragraph('', 'text-base font-black text-loyal-blue mt-2 tabular-nums');
   countdown.setAttribute('aria-hidden', 'true');
   root.append(countdown);
+  const register = registrationButton(event);
+  register.classList.add('mt-3', 'w-full');
+  root.append(registrationCount(event), register);
   const refresh = () => {
     if (Date.now() >= Date.parse(event.end)) { renderHome(root, events); return; }
     countdown.textContent = countdownText(event);
@@ -171,6 +176,7 @@ function renderHome(root, events) {
 function eventActions(event, featured = false, includeCommunity = true) {
   const actions = document.createElement('div');
   actions.className = 'flex flex-wrap gap-3 pt-3 text-sm font-bold';
+  actions.append(registrationButton(event, featured));
   if (includeCommunity) actions.append(link('انضم إلى مجتمع واتساب', COMMUNITY_URL,
     'rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2.5', true));
   actions.append(link('أضف إلى تقويم Google', googleCalendarUrl(event),
@@ -231,7 +237,7 @@ function renderFeaturedEvent(event, root, events) {
   const ongoing = paragraph('', 'text-lg font-black text-happy-yellow');
   ongoing.setAttribute('aria-live', 'polite');
   timer.append(countdown, ongoing);
-  article.append(timer, eventActions(event, true));
+  article.append(timer, registrationCount(event), eventActions(event, true));
 
   const refresh = () => {
     if (Date.now() >= Date.parse(event.end)) { renderMeetings(root, events); return; }
