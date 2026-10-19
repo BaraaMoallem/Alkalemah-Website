@@ -47,11 +47,11 @@ export function registrationButton(event, featured = false) {
 function openRegistration(event, trigger) {
   const dialog = document.createElement('dialog');
   dialog.dir = 'rtl';
-  dialog.className = 'w-[calc(100%-2rem)] max-w-lg max-h-[calc(100dvh-2rem)] overflow-y-auto rounded-2xl p-0 shadow-2xl backdrop:bg-slate-950/70';
+  dialog.className = 'registration-modal rounded-2xl p-0 shadow-2xl';
   dialog.setAttribute('aria-labelledby', 'registration-title');
   dialog.setAttribute('aria-modal', 'true');
   const panel = document.createElement('div');
-  panel.className = 'p-5 sm:p-7 bg-white text-slate-800';
+  panel.className = 'p-5 sm:p-8 bg-white text-slate-800 text-right';
   const heading = document.createElement('h2');
   heading.id = 'registration-title';
   heading.className = 'text-xl font-black text-loyal-blue';
@@ -88,7 +88,7 @@ function openRegistration(event, trigger) {
   status.className = 'text-sm font-bold min-h-5';
   status.setAttribute('role', 'alert');
   const actions = document.createElement('div');
-  actions.className = 'flex flex-wrap gap-3 pt-1';
+  actions.className = 'sticky bottom-0 flex flex-wrap gap-3 bg-white pt-3 pb-1';
   const submit = document.createElement('button');
   submit.type = 'submit';
   submit.textContent = 'تأكيد التسجيل';
@@ -109,6 +109,7 @@ function openRegistration(event, trigger) {
   }, { once: true });
   let pending = false;
   dialog.addEventListener('cancel', e => { if (pending) e.preventDefault(); });
+  dialog.addEventListener('click', e => { if (e.target === dialog && !pending) dialog.close(); });
   form.addEventListener('submit', async e => {
     e.preventDefault();
     if (pending) return;
@@ -132,11 +133,7 @@ function openRegistration(event, trigger) {
         body: JSON.stringify({ name, phone, email, eventId: event.id, eventTitle: event.title, eventStart: event.start }),
       });
       const data = await response.json();
-      if (!response.ok) {
-        if (response.status === 404) throw new Error('لم يعد هذا الاجتماع متاحًا للتسجيل. يرجى تحديث الصفحة.');
-        if (response.status === 429) throw new Error('محاولات كثيرة. يرجى الانتظار قليلًا ثم المحاولة مجددًا.');
-        throw new Error('تعذر تسجيل الحضور حاليًا. يرجى المحاولة لاحقًا.');
-      }
+      if (!response.ok || data.ok === false) throw new Error(registrationErrorMessage(data.code));
       if (Number.isSafeInteger(data.count) && data.count >= 0) updateRegistrationCount(event.id, data.count);
       status.textContent = data.alreadyRegistered === true
         ? 'أنت مسجل بالفعل في هذا الاجتماع.' : 'تم تسجيل حضورك بنجاح. ننتظرك في الاجتماع!';
@@ -145,8 +142,8 @@ function openRegistration(event, trigger) {
       submit.remove();
       if (data.count === null) refreshCount(event);
     } catch (error) {
-      status.textContent = error.message?.startsWith('لم يعد') || error.message?.startsWith('محاولات')
-        ? error.message : 'تعذر تسجيل الحضور حاليًا. يرجى المحاولة لاحقًا.';
+      status.textContent = error.message?.startsWith('لم يعد') || error.message?.startsWith('محاولات') ||
+        error.message?.startsWith('يرجى مراجعة') ? error.message : registrationErrorMessage();
       submit.disabled = false;
     } finally {
       pending = false;
@@ -155,6 +152,13 @@ function openRegistration(event, trigger) {
   });
   dialog.showModal();
   inputs.name.focus();
+}
+
+function registrationErrorMessage(code) {
+  if (code === 'INVALID_EVENT') return 'لم يعد هذا الاجتماع متاحًا للتسجيل. يرجى تحديث الصفحة.';
+  if (code === 'RATE_LIMITED') return 'محاولات كثيرة. يرجى الانتظار قليلًا ثم المحاولة مجددًا.';
+  if (code === 'INVALID_SUBMISSION') return 'يرجى مراجعة البيانات المدخلة والمحاولة مجددًا.';
+  return 'تعذر تسجيل الحضور حاليًا. يرجى المحاولة لاحقًا.';
 }
 
 function refreshCount(event) {

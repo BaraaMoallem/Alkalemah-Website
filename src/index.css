@@ -3,6 +3,24 @@
 @source "./calendar.js";
 @source "./registration.js";
 
+dialog.registration-modal {
+  position: fixed;
+  inset: auto;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  width: min(35rem, calc(100vw - 2rem));
+  max-width: none;
+  max-height: calc(100dvh - 2rem);
+  overflow-y: auto;
+  text-align: right;
+}
+
+dialog.registration-modal::backdrop {
+  background: rgb(15 23 42 / 55%);
+}
+
 @theme {
   --color-loyal-blue: #004165;
   --color-loyal-blue-dark: #00273d;

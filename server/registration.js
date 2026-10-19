@@ -55,28 +55,58 @@ export function invalidateCount(eventId) {
   countCache.delete(eventId);
 }
 
+export class RegistrationBackendError extends Error {
+  constructor(code, upstreamStatus) {
+    super(code);
+    this.code = code;
+    this.upstreamStatus = upstreamStatus;
+  }
+}
+
 export async function askAppsScript(payload) {
   const endpoint = process.env.REGISTRATION_APPS_SCRIPT_URL;
   const secret = process.env.REGISTRATION_WEBHOOK_SECRET;
-  if (!endpoint || !secret) throw new Error('not-configured');
+  if (!endpoint || !secret) throw new RegistrationBackendError('REGISTRATION_CONFIG_MISSING');
   let url;
-  try { url = new URL(endpoint); } catch { throw new Error('not-configured'); }
-  if (url.protocol !== 'https:' || url.hostname !== 'script.google.com') throw new Error('not-configured');
+  try { url = new URL(endpoint); } catch { throw new RegistrationBackendError('REGISTRATION_CONFIG_MISSING'); }
+  if (url.protocol !== 'https:' || url.hostname !== 'script.google.com') {
+    throw new RegistrationBackendError('REGISTRATION_CONFIG_MISSING');
+  }
 
-  const upstream = await fetch(url, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ ...payload, secret }),
-    signal: AbortSignal.timeout(10000),
-    cache: 'no-store',
-  });
-  if (!upstream.ok) throw new Error('upstream');
-  const data = await upstream.json();
-  if (!data || typeof data !== 'object' ||
-      (data.alreadyRegistered !== true && (data.success === false || data.ok === false || data.error))) {
-    throw new Error('upstream');
+  let upstream;
+  try {
+    upstream = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ ...payload, secret }),
+      signal: AbortSignal.timeout(10000),
+      cache: 'no-store',
+    });
+  } catch {
+    throw new RegistrationBackendError('REGISTRATION_BACKEND_UNAVAILABLE');
+  }
+  let data;
+  try {
+    data = await upstream.json();
+  } catch {
+    throw new RegistrationBackendError(upstream.ok ? 'REGISTRATION_BACKEND_INVALID_RESPONSE'
+      : 'REGISTRATION_BACKEND_REJECTED', upstream.status);
+  }
+  if (!upstream.ok && !(payload.action === 'register' && data?.alreadyRegistered === true)) {
+    throw new RegistrationBackendError('REGISTRATION_BACKEND_REJECTED', upstream.status);
+  }
+  if (!data || typeof data !== 'object' || Array.isArray(data)) {
+    throw new RegistrationBackendError('REGISTRATION_BACKEND_INVALID_RESPONSE', upstream.status);
+  }
+  if (data.alreadyRegistered !== true && (data.success === false || data.ok === false || data.error)) {
+    throw new RegistrationBackendError('REGISTRATION_BACKEND_REJECTED', upstream.status);
   }
   if (payload.action === 'register' && data.alreadyRegistered !== true && data.success !== true &&
-      data.ok !== true && !validCount(data.count)) throw new Error('upstream');
+      data.ok !== true && !validCount(data.count)) {
+    throw new RegistrationBackendError('REGISTRATION_BACKEND_INVALID_RESPONSE', upstream.status);
+  }
+  if (payload.action === 'count' && !validCount(data.count)) {
+    throw new RegistrationBackendError('REGISTRATION_BACKEND_INVALID_RESPONSE', upstream.status);
+  }
   return data;
 }

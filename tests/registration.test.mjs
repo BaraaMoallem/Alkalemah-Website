@@ -31,6 +31,8 @@ const registration = {
 
 async function withBackend(appsScript, action, calendarItems = meetings) {
   const originalFetch = globalThis.fetch;
+  const originalWarn = console.warn;
+  const logs = [];
   const saved = Object.fromEntries(['GOOGLE_CALENDAR_ID', 'GOOGLE_CALENDAR_API_KEY',
     'REGISTRATION_APPS_SCRIPT_URL', 'REGISTRATION_WEBHOOK_SECRET'].map(key => [key, process.env[key]]));
   process.env.GOOGLE_CALENDAR_ID = 'club@example.com';
@@ -45,9 +47,11 @@ async function withBackend(appsScript, action, calendarItems = meetings) {
     assert.equal(options.method, 'POST');
     return appsScript(JSON.parse(options.body));
   };
-  try { await action(); }
+  console.warn = (...args) => logs.push(args);
+  try { await action(logs); }
   finally {
     globalThis.fetch = originalFetch;
+    console.warn = originalWarn;
     for (const [key, value] of Object.entries(saved)) {
       if (value === undefined) delete process.env[key];
       else process.env[key] = value;
@@ -61,8 +65,11 @@ test('registers once per phone and event; a different event accepts the same pho
     assert.equal(payload.secret, 'webhook-secret-for-test');
     const key = `${payload.eventId}:${payload.phone}`;
     if (payload.action === 'register') {
+      assert.deepEqual(Object.keys(payload).sort(), ['action', 'email', 'eventId', 'eventStart',
+        'eventTitle', 'name', 'phone', 'secret'].sort());
       assert.equal(payload.eventTitle, meetings.find(item => item.id === payload.eventId).summary);
       assert.equal(payload.eventStart, meetings.find(item => item.id === payload.eventId).start.dateTime);
+      assert.match(payload.eventStart, /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}[+-]\d{2}:\d{2}$/);
       const duplicate = records.has(key);
       records.set(key, payload);
       return { ok: true, json: async () => ({ alreadyRegistered: duplicate, count: [...records.keys()].filter(item => item.startsWith(`${payload.eventId}:`)).length }) };
@@ -72,13 +79,13 @@ test('registers once per phone and event; a different event accepts the same pho
     const first = responseMock();
     await register(request('POST', registration), first);
     assert.equal(first.code, 200);
-    assert.deepEqual(first.body, { alreadyRegistered: false, count: 1 });
+    assert.deepEqual(first.body, { ok: true, code: 'REGISTERED', alreadyRegistered: false, count: 1 });
     const duplicate = responseMock();
     await register(request('POST', registration), duplicate);
-    assert.deepEqual(duplicate.body, { alreadyRegistered: true, count: 1 });
+    assert.deepEqual(duplicate.body, { ok: true, code: 'ALREADY_REGISTERED', alreadyRegistered: true, count: 1 });
     const second = responseMock();
     await register(request('POST', { ...registration, eventId: 'meeting_b' }), second);
-    assert.deepEqual(second.body, { alreadyRegistered: false, count: 1 });
+    assert.deepEqual(second.body, { ok: true, code: 'REGISTERED', alreadyRegistered: false, count: 1 });
     assert.equal(records.size, 2);
   });
 });
@@ -91,6 +98,7 @@ test('rejects missing fields, extras, invalid event IDs and cancelled meetings w
       { ...registration, phone: '' },
       { ...registration, eventTitle: '' },
       { ...registration, eventStart: '' },
+      { ...registration, eventStart: '2030-01-01' },
       { ...registration, eventId: '../../other' },
       { ...registration, extra: 'injected' },
       { ...registration, eventId: 'missing_event' },
@@ -98,6 +106,8 @@ test('rejects missing fields, extras, invalid event IDs and cancelled meetings w
       const response = responseMock();
       await register(request('POST', body), response);
       assert.equal(response.code, body.eventId === 'missing_event' ? 404 : 400);
+      assert.deepEqual(response.body, { ok: false,
+        code: body.eventId === 'missing_event' ? 'INVALID_EVENT' : 'INVALID_SUBMISSION' });
       assert.equal(response.headers['Cache-Control'], 'no-store');
     }
     assert.equal(calls, 0);
@@ -106,17 +116,71 @@ test('rejects missing fields, extras, invalid event IDs and cancelled meetings w
     const response = responseMock();
     await register(request('POST', registration), response);
     assert.equal(response.code, 404);
+    assert.deepEqual(response.body, { ok: false, code: 'INVALID_EVENT' });
     assert.equal(calls, 0);
   }, [{ ...meetings[0], status: 'cancelled' }]);
 });
 
 test('returns a clean upstream error and never exposes credentials or contact details', async () => {
-  await withBackend(async () => { throw new Error('private upstream failure'); }, async () => {
+  await withBackend(async () => { throw new Error('private upstream failure'); }, async logs => {
     const response = responseMock();
     await register(request('POST', registration), response);
     assert.equal(response.code, 502);
-    assert.equal(response.body.error, 'Registration is temporarily unavailable');
+    assert.deepEqual(response.body, { ok: false, code: 'REGISTRATION_BACKEND_UNAVAILABLE' });
     assert.doesNotMatch(JSON.stringify(response.body), /webhook-secret|Guest Name|201234567890|script.google/);
+    assert.deepEqual(logs.at(-1), ['[registration]', {
+      code: 'REGISTRATION_BACKEND_UNAVAILABLE', httpStatus: 502, dependency: 'apps_script',
+    }]);
+    assert.doesNotMatch(JSON.stringify(logs), /webhook-secret|Guest Name|201234567890|script.google|calendar-key/);
+  });
+});
+
+test('categorizes missing configuration, upstream rejection and invalid response using safe logs', async () => {
+  await withBackend(async () => { throw new Error('must not be called'); }, async logs => {
+    delete process.env.REGISTRATION_WEBHOOK_SECRET;
+    const response = responseMock();
+    await register(request('POST', registration), response);
+    assert.equal(response.code, 503);
+    assert.deepEqual(response.body, { ok: false, code: 'REGISTRATION_CONFIG_MISSING' });
+    assert.deepEqual(logs.at(-1), ['[registration]', {
+      code: 'REGISTRATION_CONFIG_MISSING', httpStatus: 503, dependency: 'apps_script',
+    }]);
+  });
+  await withBackend(async () => { throw new Error('must not be called'); }, async logs => {
+    delete process.env.GOOGLE_CALENDAR_API_KEY;
+    const response = responseMock();
+    await register(request('POST', registration), response);
+    assert.equal(response.code, 503);
+    assert.deepEqual(logs.at(-1), ['[registration]', {
+      code: 'REGISTRATION_CONFIG_MISSING', httpStatus: 503, dependency: 'calendar',
+    }]);
+  });
+  await withBackend(async () => ({ ok: false, status: 403,
+    json: async () => ({ error: 'secret backend message' }) }), async logs => {
+    const response = responseMock();
+    await register(request('POST', registration), response);
+    assert.deepEqual(response.body, { ok: false, code: 'REGISTRATION_BACKEND_REJECTED' });
+    assert.deepEqual(logs.at(-1), ['[registration]', {
+      code: 'REGISTRATION_BACKEND_REJECTED', httpStatus: 502,
+      dependency: 'apps_script', upstreamStatus: 403,
+    }]);
+    assert.doesNotMatch(JSON.stringify(logs), /secret backend message/);
+  });
+  await withBackend(async () => ({ ok: true, status: 200, json: async () => ({}) }), async logs => {
+    const response = responseMock();
+    await register(request('POST', registration), response);
+    assert.deepEqual(response.body, { ok: false, code: 'REGISTRATION_BACKEND_INVALID_RESPONSE' });
+    assert.equal(logs.at(-1)[1].upstreamStatus, 200);
+  });
+});
+
+test('an Apps Script duplicate response is successful even with HTTP 409', async () => {
+  await withBackend(async () => ({ ok: false, status: 409,
+    json: async () => ({ alreadyRegistered: true, count: 1 }) }), async logs => {
+    const response = responseMock();
+    await register(request('POST', registration), response);
+    assert.deepEqual(response.body, { ok: true, code: 'ALREADY_REGISTERED', alreadyRegistered: true, count: 1 });
+    assert.equal(logs.at(-1)[1].code, 'DUPLICATE_REGISTRATION');
   });
 });
 
@@ -177,11 +241,13 @@ test('registration requires JSON and applies a per-instance request limit', asyn
     const rejected = responseMock();
     await register(wrongType, rejected);
     assert.equal(rejected.code, 415);
+    assert.deepEqual(rejected.body, { ok: false, code: 'INVALID_SUBMISSION' });
     const sameIp = request('POST', { ...registration, name: '' });
     sameIp.headers['x-vercel-forwarded-for'] = 'rate-limit-test';
     for (let i = 0; i < 6; i++) await register(sameIp, responseMock());
     const limited = responseMock();
     await register(sameIp, limited);
     assert.equal(limited.code, 429);
+    assert.deepEqual(limited.body, { ok: false, code: 'RATE_LIMITED' });
   });
 });
