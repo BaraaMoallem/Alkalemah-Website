@@ -1,6 +1,16 @@
 const headingPattern = /^\s*(محور\s+الاجتماع|نبذة\s+عن\s+الاجتماع|(?:رابط|روابط)\s+الاجتماع)\s*(?:[:：﹕؛]\s*(.*))?\s*$/u;
 const urlPattern = /https?:\/\/[^\s<>"']+|(?<![\w.-])(?:www\.)?(?:facebook|instagram)\.com(?![.\w-])(?:\/[^\s<>"']*)?/giu;
 
+function descriptionLines(description) {
+  // Calendar descriptions can contain simple editor HTML instead of literal newlines.
+  return description.replace(/<br\s*\/?>/giu, '\n')
+    .replace(/<\/(?:div|p|li|h[1-6])\s*>/giu, '\n')
+    .replace(/<[^>]+>/gu, '')
+    .replace(/&nbsp;|&#160;|&#x[aA]0;/giu, ' ')
+    .replace(/&amp;/giu, '&')
+    .split(/\r?\n/u);
+}
+
 function socialLinks(text) {
   const links = [];
   const seen = new Set();
@@ -23,7 +33,7 @@ export function parseMeetingDescription(description) {
   const fields = { theme: [], summary: [], links: [] };
   if (typeof description !== 'string') return { theme: '', summary: '', links: [] };
   let section = null;
-  for (const line of description.split(/\r?\n/u)) {
+  for (const line of descriptionLines(description)) {
     const heading = line.match(headingPattern);
     if (heading) {
       section = heading[1].startsWith('محور') ? 'theme'

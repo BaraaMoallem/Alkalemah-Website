@@ -180,6 +180,53 @@ test('archive failure leaves upcoming meetings usable and gives a separate frien
   }
 });
 
+test('shared metadata renders in upcoming and archive views without rebuilding unchanged results', async () => {
+  const oldDocument = globalThis.document;
+  const oldFetch = globalThis.fetch;
+  const meetings = new Element('div');
+  const archive = new Element('div');
+  const head = new Element('head');
+  const upcoming = [1, 2].map(day => ({ id: `future_${day}`, title: `اجتماع ${day}`,
+    start: `2030-01-0${day}T19:00:00+02:00`, end: `2030-01-0${day}T22:00:00+02:00`,
+    description: 'محور الاجتماع: التواصل الفعال', status: 'confirmed' }));
+  const past = { id: 'past', title: 'اجتماع سابق', start: '2026-01-01T19:00:00+02:00',
+    end: '2026-01-01T22:00:00+02:00', status: 'confirmed',
+    description: 'محور الاجتماع:\nفن الإقناع\nنبذة عن الاجتماع:\nسطر أول\nسطر ثان\nروابط الاجتماع:\nhttps://facebook.com/example\nhttps://instagram.com/example' };
+  globalThis.document = {
+    head,
+    createElement: tag => new Element(tag),
+    querySelector: selector => ({ '#meetings-list': meetings, '#past-meetings-list': archive,
+      '#calendar-event-schema': head.children.find(item => item.id === 'calendar-event-schema') })[selector] || null,
+    querySelectorAll: () => [],
+  };
+  globalThis.fetch = async url => ({ ok: true, json: async () => url.includes('scope=past')
+    ? { events: [{ ...past }] } : url.includes('registration-count')
+      ? { eventId: 'future_1', count: 0 } : { events: upcoming.map(event => ({ ...event })) } });
+  try {
+    await init();
+    const texts = root => descendants(root).map(item => item.textContent || '');
+    assert.ok(texts(meetings).includes('محور الاجتماع: التواصل الفعال'));
+    assert.equal(texts(meetings).filter(text => text === 'سجل حضورك').length, 1);
+    for (const expected of ['محور الاجتماع: فن الإقناع', 'سطر أول\nسطر ثان', 'فيسبوك', 'إنستغرام']) {
+      assert.ok(texts(archive).includes(expected), expected);
+    }
+    assert.equal(texts(archive).includes('سجل حضورك'), false);
+    const firstGrid = archive.children[0];
+    const firstFeatured = meetings.children[0];
+    await init();
+    assert.equal(archive.children[0], firstGrid);
+    assert.equal(meetings.children[0], firstFeatured);
+    past.description = 'محور الاجتماع: موضوع جديد';
+    await init();
+    assert.notEqual(archive.children[0], firstGrid);
+    assert.ok(texts(archive).includes('محور الاجتماع: موضوع جديد'));
+  } finally {
+    clearInterval(meetings._meetingsCountdown);
+    globalThis.document = oldDocument;
+    globalThis.fetch = oldFetch;
+  }
+});
+
 test('the single organization entity retains verified identifiers and official profiles', () => {
   const page = readFileSync(new URL('../index.html', import.meta.url), 'utf8');
   const schemas = [...page.matchAll(/<script\s+type="application\/ld\+json">(.*?)<\/script>/gs)]

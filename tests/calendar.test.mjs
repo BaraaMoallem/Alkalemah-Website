@@ -85,8 +85,9 @@ test('API normalizes timed public events and excludes cancelled and all-day entr
     assert.equal(url.searchParams.get('singleEvents'), 'true');
     assert.equal(url.searchParams.get('orderBy'), 'startTime');
     assert.equal(url.searchParams.get('showDeleted'), 'false');
+    assert.match(url.searchParams.get('fields'), /description/);
     return { ok: true, json: async () => ({ items: [
-      { id: 'a', summary: 'One', start: { dateTime: '2030-01-01T19:00:00+02:00' }, end: { dateTime: '2030-01-01T22:00:00+02:00' } },
+      { id: 'a', summary: 'One', description: 'محور الاجتماع: التواصل الفعال', start: { dateTime: '2030-01-01T19:00:00+02:00' }, end: { dateTime: '2030-01-01T22:00:00+02:00' } },
       { id: 'b', summary: 'Two', start: { dateTime: '2030-01-15T19:00:00+02:00' }, end: { dateTime: '2030-01-15T22:00:00+02:00' } },
       { id: 'c', status: 'cancelled', start: { dateTime: '2030-01-20T19:00:00+02:00' }, end: { dateTime: '2030-01-20T22:00:00+02:00' } },
       { id: 'd', start: { date: '2030-01-25' }, end: { date: '2030-01-26' } },
@@ -96,6 +97,7 @@ test('API normalizes timed public events and excludes cancelled and all-day entr
     await handler({ method: 'GET' }, response);
     assert.equal(response.code, 200);
     assert.deepEqual(response.body.events.map(event => event.id), ['a', 'b']);
+    assert.equal(response.body.events[0].description, 'محور الاجتماع: التواصل الفعال');
     assert.match(response.headers['Cache-Control'], /s-maxage=60/);
   });
 });
@@ -120,7 +122,7 @@ test('past API queries a bounded recent window, returns newest completed events 
   const now = Date.now();
   const item = (id, daysAgo) => {
     const start = new Date(now - daysAgo * 86400000);
-    return { id, summary: id, description: '', start: { dateTime: start.toISOString() },
+    return { id, summary: id, description: id === 'past_1' ? 'محور الاجتماع: فن الإقناع' : '', start: { dateTime: start.toISOString() },
       end: { dateTime: new Date(start.getTime() + 3600000).toISOString() } };
   };
   await withApiMock(async url => {
@@ -139,6 +141,7 @@ test('past API queries a bounded recent window, returns newest completed events 
     assert.equal(response.code, 200);
     assert.equal(response.body.events.length, 16);
     assert.equal(response.body.events[0].id, 'past_1');
+    assert.equal(response.body.events[0].description, 'محور الاجتماع: فن الإقناع');
     assert.equal(response.body.events.at(-1).id, 'past_16');
     assert.match(response.headers['Cache-Control'], /s-maxage=1800/);
   });

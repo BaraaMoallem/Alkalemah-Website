@@ -6,6 +6,7 @@ const CLUB_URL = 'https://www.alkalemah.club/';
 const COMMUNITY_URL = 'https://chat.whatsapp.com/JutO99rTDXVLIHSwLbWPZO';
 let upcomingSchemaEvents = [];
 let pastSchemaEvents = [];
+const meetingMetadata = new WeakMap();
 const WEEKDAYS = ['السبت', 'الأحد', 'الاثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة'];
 
 export function selectCurrentEvent(events, now = Date.now()) {
@@ -14,11 +15,18 @@ export function selectCurrentEvent(events, now = Date.now()) {
 }
 
 export function formatEventTime(event) {
-  const date = new Date(event.start);
-  const dateText = new Intl.DateTimeFormat('ar-EG', {
+  return `${formatEventDate(event)}، ${formatClockRange(event)}`;
+}
+
+function formatEventDate(event) {
+  return new Intl.DateTimeFormat('ar-EG', {
     timeZone: ZONE, weekday: 'long', day: 'numeric', month: 'long', year: 'numeric',
-  }).format(date);
-  return `${dateText}، ${formatClockRange(event)}`;
+  }).format(new Date(event.start));
+}
+
+function metadataFor(event) {
+  if (!meetingMetadata.has(event)) meetingMetadata.set(event, parseMeetingDescription(event.description));
+  return meetingMetadata.get(event);
 }
 
 function formatClockRange(event) {
@@ -118,7 +126,7 @@ function eventSchema(event, archived = false) {
   const place = event.location ? {
     '@type': 'Place', name: event.location,
   } : undefined;
-  const metadata = archived ? parseMeetingDescription(event.description) : null;
+  const metadata = metadataFor(event);
   const eventUrl = archived
     ? `${CLUB_URL}meetings.html#past-meeting-${encodeURIComponent(event.id)}`
     : `${CLUB_URL}meetings.html`;
@@ -158,7 +166,8 @@ async function getEvents(scope = 'upcoming') {
   const data = await response.json();
   if (!Array.isArray(data.events)) throw new Error('Invalid calendar response');
   return data.events.filter(event => event && Number.isFinite(Date.parse(event.start)) &&
-    Number.isFinite(Date.parse(event.end)) && Date.parse(event.end) > Date.parse(event.start));
+    Number.isFinite(Date.parse(event.end)) && Date.parse(event.end) > Date.parse(event.start))
+    .map(event => { metadataFor(event); return event; });
 }
 
 export function renderArchive(root, events) {
@@ -173,29 +182,23 @@ export function renderArchive(root, events) {
     return;
   }
   const grid = document.createElement('div');
-  grid.className = 'grid gap-4 sm:grid-cols-2 lg:grid-cols-3';
+  grid.className = 'grid items-start gap-4 sm:grid-cols-2 lg:grid-cols-3';
   for (const event of past) {
-    const details = parseMeetingDescription(event.description);
+    const details = metadataFor(event);
     const article = document.createElement('article');
     article.id = `past-meeting-${encodeURIComponent(event.id)}`;
-    article.className = 'scroll-mt-24 rounded-2xl border border-slate-200 bg-white p-5 space-y-3 shadow-sm';
+    article.className = 'scroll-mt-24 min-w-0 break-words rounded-2xl border border-slate-200 bg-white p-5 space-y-3 shadow-sm';
     article.append(eventTitle(event, 'text-lg font-black text-loyal-blue leading-snug'));
     const date = document.createElement('time');
     date.dateTime = event.start;
-    date.textContent = formatEventTime(event);
+    date.textContent = formatEventDate(event);
     date.className = 'block text-sm font-semibold text-slate-600';
     article.append(date);
     if (details.theme) article.append(paragraph(`محور الاجتماع: ${details.theme}`, 'text-sm font-bold text-true-maroon'));
     if (details.summary) article.append(paragraph(details.summary, 'text-sm text-slate-700 whitespace-pre-line leading-relaxed'));
     if (event.location) article.append(paragraph(event.location, 'text-sm text-slate-600'));
-    if (details.links.length) {
-      const links = document.createElement('div');
-      links.className = 'flex flex-wrap gap-3 text-sm font-bold';
-      for (const item of details.links) links.append(link(
-        item.platform === 'facebook' ? 'فيسبوك' : 'إنستغرام', item.href,
-        'text-loyal-blue underline hover:text-true-maroon', true));
-      article.append(links);
-    }
+    const links = socialActions(details.links, 'text-loyal-blue underline hover:text-true-maroon');
+    if (links) article.append(links);
     grid.append(article);
   }
   root.append(grid);
@@ -214,6 +217,8 @@ export function renderHome(root, events) {
   root.append(paragraph('الاجتماع القادم', 'text-sm font-bold text-true-maroon'),
     paragraph(event.title, 'font-black text-loyal-blue text-lg mt-1'),
     paragraph(formatEventTime(event), 'text-sm text-slate-700 mt-1'));
+  const theme = metadataFor(event).theme;
+  if (theme) root.append(paragraph(`محور الاجتماع: ${theme}`, 'text-sm font-bold text-true-maroon mt-2'));
   const countdown = paragraph('', 'text-base font-black text-loyal-blue mt-2 tabular-nums');
   countdown.setAttribute('aria-hidden', 'true');
   root.append(countdown);
@@ -267,9 +272,28 @@ function eventTitle(event, className) {
 
 function eventDescription(event, className) {
   if (!event.description?.trim()) return null;
-  const description = paragraph(event.description.trim(), className);
-  description.dir = 'auto';
-  return description;
+  const details = metadataFor(event);
+  if (!details.theme && !details.summary && !details.links.length) {
+    const description = paragraph(event.description.trim(), className);
+    description.dir = 'auto';
+    return description;
+  }
+  const content = document.createElement('div');
+  content.className = 'space-y-2';
+  if (details.theme) content.append(paragraph(`محور الاجتماع: ${details.theme}`, className));
+  if (details.summary) content.append(paragraph(details.summary, className));
+  const links = socialActions(details.links, 'underline hover:opacity-80');
+  if (links) content.append(links);
+  return content;
+}
+
+function socialActions(items, className) {
+  if (!items.length) return null;
+  const actions = document.createElement('div');
+  actions.className = 'flex flex-wrap gap-3 text-sm font-bold';
+  for (const item of items) actions.append(link(
+    item.platform === 'facebook' ? 'فيسبوك' : 'إنستغرام', item.href, className, true));
+  return actions;
 }
 
 function renderFeaturedEvent(event, root, events) {
@@ -506,6 +530,13 @@ export function renderMeetings(root, events) {
   updateEventSchema(upcoming);
 }
 
+function renderChanged(root, events, render) {
+  const signature = JSON.stringify(events);
+  if (root._calendarSignature === signature) return;
+  render(root, events);
+  root._calendarSignature = signature;
+}
+
 export async function init() {
   const home = document.querySelector('#next-meeting');
   const meetings = document.querySelector('#meetings-list');
@@ -513,15 +544,17 @@ export async function init() {
   if (!home && !meetings && !archive) return;
   try {
     const events = await getEvents();
-    if (home) renderHome(home, events);
-    if (meetings) renderMeetings(meetings, events);
+    if (home) renderChanged(home, events, renderHome);
+    if (meetings) renderChanged(meetings, events, renderMeetings);
   } catch {
     const message = 'تعذر تحميل مواعيد الاجتماعات حاليًا. يرجى المحاولة لاحقًا، وتابع مجتمع واتساب لمعرفة آخر الإعلانات.';
     if (home) {
+      home._calendarSignature = null;
       clearInterval(home._countdownInterval);
       home.replaceChildren(paragraph(message, 'text-sm text-slate-700'));
     }
     if (meetings) {
+      meetings._calendarSignature = null;
       clearInterval(meetings._meetingsCountdown);
       const error = paragraph(message, 'text-slate-700');
       error.setAttribute('role', 'status');
@@ -533,8 +566,9 @@ export async function init() {
   }
   if (archive) {
     try {
-      renderArchive(archive, await getEvents('past'));
+      renderChanged(archive, await getEvents('past'), renderArchive);
     } catch {
+      archive._calendarSignature = null;
       updateEventSchema([], 'past');
       const error = paragraph('تعذر تحميل الاجتماعات السابقة حاليًا. يرجى المحاولة لاحقًا.', 'text-slate-600');
       error.setAttribute('role', 'status');
