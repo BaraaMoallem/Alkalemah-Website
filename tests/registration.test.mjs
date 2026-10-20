@@ -59,9 +59,9 @@ async function withBackend(appsScript, action, calendarItems = meetings) {
   }
 }
 
-test('registers once per phone and event; a different event accepts the same phone; forwards verified calendar details', async () => {
+test('registers and detects duplicates for the next event; later meetings open only after it advances', async () => {
   const records = new Map();
-  await withBackend(async payload => {
+  const appsScript = async payload => {
     assert.equal(payload.secret, 'webhook-secret-for-test');
     const key = `${payload.eventId}:${payload.phone}`;
     if (payload.action === 'register') {
@@ -75,7 +75,8 @@ test('registers once per phone and event; a different event accepts the same pho
       return { ok: true, json: async () => ({ alreadyRegistered: duplicate, count: [...records.keys()].filter(item => item.startsWith(`${payload.eventId}:`)).length }) };
     }
     return { ok: true, json: async () => ({ count: [...records.keys()].filter(item => item.startsWith(`${payload.eventId}:`)).length }) };
-  }, async () => {
+  };
+  await withBackend(appsScript, async () => {
     const first = responseMock();
     await register(request('POST', registration), first);
     assert.equal(first.code, 200);
@@ -85,9 +86,41 @@ test('registers once per phone and event; a different event accepts the same pho
     assert.deepEqual(duplicate.body, { ok: true, code: 'ALREADY_REGISTERED', alreadyRegistered: true, count: 1 });
     const second = responseMock();
     await register(request('POST', { ...registration, eventId: 'meeting_b' }), second);
-    assert.deepEqual(second.body, { ok: true, code: 'REGISTERED', alreadyRegistered: false, count: 1 });
-    assert.equal(records.size, 2);
+    assert.equal(second.code, 409);
+    assert.deepEqual(second.body, { ok: false, code: 'REGISTRATION_NOT_OPEN' });
+    assert.equal(records.size, 1);
   });
+  await withBackend(appsScript, async () => {
+    const next = responseMock();
+    await register(request('POST', { ...registration, eventId: 'meeting_b' }), next);
+    assert.deepEqual(next.body, { ok: true, code: 'REGISTERED', alreadyRegistered: false, count: 1 });
+    assert.equal(records.size, 2);
+  }, [meetings[1]]);
+});
+
+test('started, cancelled and absent meetings cannot register while the following future event opens', async () => {
+  let calls = 0;
+  const rejectBackend = async () => { calls++; throw new Error('should not be called'); };
+  const ongoing = { ...meetings[0], start: { dateTime: new Date(Date.now() - 3600000).toISOString() },
+    end: { dateTime: new Date(Date.now() + 3600000).toISOString() } };
+  await withBackend(rejectBackend, async () => {
+    const started = responseMock();
+    await register(request('POST', registration), started);
+    assert.deepEqual(started.body, { ok: false, code: 'REGISTRATION_NOT_OPEN' });
+    const later = responseMock();
+    await register(request('POST', { ...registration, eventId: 'meeting_b' }), later);
+    assert.equal(later.body.code, 'REGISTRATION_BACKEND_UNAVAILABLE');
+    assert.equal(calls, 1);
+  }, [ongoing, meetings[1]]);
+  calls = 0;
+  for (const items of [[], [{ ...meetings[0], status: 'cancelled' }]]) {
+    await withBackend(rejectBackend, async () => {
+      const response = responseMock();
+      await register(request('POST', registration), response);
+      assert.deepEqual(response.body, { ok: false, code: 'INVALID_EVENT' });
+      assert.equal(calls, 0);
+    }, items);
+  }
 });
 
 test('rejects missing fields, extras, invalid event IDs and cancelled meetings without contacting Apps Script', async () => {

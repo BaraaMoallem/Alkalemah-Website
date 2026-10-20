@@ -15,9 +15,9 @@ const second = {
   start: '2026-10-17T19:00:00+03:00', end: '2026-10-17T22:00:00+03:00',
 };
 
-test('selects an ongoing meeting and advances after it ends; never invents an empty date', () => {
+test('only a meeting that has not started is bookable; selection advances at its start', () => {
   assert.equal(selectCurrentEvent([second, first], Date.parse('2026-10-03T18:00:00+03:00'))?.id, 'first');
-  assert.equal(selectCurrentEvent([second, first], Date.parse('2026-10-03T20:00:00+03:00'))?.id, 'first');
+  assert.equal(selectCurrentEvent([second, first], Date.parse('2026-10-03T20:00:00+03:00'))?.id, 'second');
   assert.equal(countdownText(first, Date.parse('2026-10-03T20:00:00+03:00')), 'الاجتماع جارٍ الآن');
   assert.equal(selectCurrentEvent([second, first], Date.parse(first.end))?.id, 'second');
   assert.equal(selectCurrentEvent([], Date.now()), null);
@@ -96,7 +96,7 @@ test('API normalizes timed public events and excludes cancelled and all-day entr
     await handler({ method: 'GET' }, response);
     assert.equal(response.code, 200);
     assert.deepEqual(response.body.events.map(event => event.id), ['a', 'b']);
-    assert.match(response.headers['Cache-Control'], /s-maxage=300/);
+    assert.match(response.headers['Cache-Control'], /s-maxage=60/);
   });
 });
 
@@ -113,6 +113,59 @@ test('API distinguishes no events from upstream failure', async () => {
     assert.equal(response.code, 502);
     assert.equal(response.headers['Cache-Control'], 'no-store');
     assert.ok(!JSON.stringify(response.body).includes('mock-key'));
+  });
+});
+
+test('past API queries a bounded recent window, returns newest completed events and caches longer', async () => {
+  const now = Date.now();
+  const item = (id, daysAgo) => {
+    const start = new Date(now - daysAgo * 86400000);
+    return { id, summary: id, description: '', start: { dateTime: start.toISOString() },
+      end: { dateTime: new Date(start.getTime() + 3600000).toISOString() } };
+  };
+  await withApiMock(async url => {
+    assert.equal(url.searchParams.get('maxResults'), '250');
+    assert.ok(Date.parse(url.searchParams.get('timeMin')) < now);
+    assert.ok(Date.parse(url.searchParams.get('timeMax')) <= now + 5000);
+    assert.equal(url.searchParams.get('orderBy'), 'startTime');
+    return { ok: true, json: async () => ({ items: [
+      ...Array.from({ length: 20 }, (_, index) => item(`past_${20 - index}`, 20 - index)),
+      { ...item('cancelled', 2), status: 'cancelled' },
+      item('future', -2),
+    ] }) };
+  }, async () => {
+    const response = responseMock();
+    await handler({ method: 'GET', query: { scope: 'past' } }, response);
+    assert.equal(response.code, 200);
+    assert.equal(response.body.events.length, 16);
+    assert.equal(response.body.events[0].id, 'past_1');
+    assert.equal(response.body.events.at(-1).id, 'past_16');
+    assert.match(response.headers['Cache-Control'], /s-maxage=1800/);
+  });
+  const invalid = responseMock();
+  await handler({ method: 'GET', query: { scope: 'all' } }, invalid);
+  assert.equal(invalid.code, 400);
+});
+
+test('past API follows a bounded page of Calendar results so newer events are not omitted', async () => {
+  const yesterday = new Date(Date.now() - 86400000).toISOString();
+  const older = new Date(Date.now() - 30 * 86400000).toISOString();
+  const item = (id, start) => ({ id, summary: id, start: { dateTime: start },
+    end: { dateTime: new Date(Date.parse(start) + 3600000).toISOString() } });
+  let calls = 0;
+  await withApiMock(async url => {
+    calls++;
+    if (calls === 1) {
+      assert.equal(url.searchParams.has('pageToken'), false);
+      return { ok: true, json: async () => ({ items: [item('older', older)], nextPageToken: 'next' }) };
+    }
+    assert.equal(url.searchParams.get('pageToken'), 'next');
+    return { ok: true, json: async () => ({ items: [item('newer', yesterday)] }) };
+  }, async () => {
+    const response = responseMock();
+    await handler({ method: 'GET', query: { scope: 'past' } }, response);
+    assert.deepEqual(response.body.events.map(event => event.id), ['newer', 'older']);
+    assert.equal(calls, 2);
   });
 });
 

@@ -47,12 +47,19 @@ export default async function handler(request, response) {
     return fail(response, 503, 'REGISTRATION_CONFIG_MISSING', { dependency: 'calendar' });
   }
   let event;
+  let bookable;
   try {
-    event = (await getUpcomingEvents()).find(item => item.id === eventId);
+    const events = await getUpcomingEvents();
+    const now = Date.now();
+    event = events.find(item => item.id === eventId);
+    bookable = events.find(item => Date.parse(item.start) > now);
   } catch {
     return fail(response, 502, 'CALENDAR_UNAVAILABLE');
   }
   if (!event) return fail(response, 404, 'INVALID_EVENT');
+  if (!bookable || event.id !== bookable.id || Date.parse(bookable.start) <= Date.now()) {
+    return fail(response, 409, 'REGISTRATION_NOT_OPEN');
+  }
 
   try {
     // The live calendar is canonical, even if the page still has an older title or time.

@@ -1,12 +1,15 @@
 import { registrationButton, registrationCount } from './registration.js';
+import { parseMeetingDescription } from './archive.js';
 
 const ZONE = 'Africa/Cairo';
 const CLUB_URL = 'https://www.alkalemah.club/';
 const COMMUNITY_URL = 'https://chat.whatsapp.com/JutO99rTDXVLIHSwLbWPZO';
+let upcomingSchemaEvents = [];
+let pastSchemaEvents = [];
 const WEEKDAYS = ['السبت', 'الأحد', 'الاثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة'];
 
 export function selectCurrentEvent(events, now = Date.now()) {
-  return events.filter(event => Date.parse(event.end) > now)
+  return events.filter(event => event.status !== 'cancelled' && Date.parse(event.start) > now)
     .sort((a, b) => Date.parse(a.start) - Date.parse(b.start))[0] || null;
 }
 
@@ -111,33 +114,46 @@ export function countdownText(event, now = Date.now()) {
   return `${days} أيام : ${String(hours).padStart(2, '0')} ساعات : ${String(minutes).padStart(2, '0')} دقيقة`;
 }
 
-function eventSchema(event) {
+function eventSchema(event, archived = false) {
   const place = event.location ? {
     '@type': 'Place', name: event.location,
   } : undefined;
+  const metadata = archived ? parseMeetingDescription(event.description) : null;
+  const eventUrl = archived
+    ? `${CLUB_URL}meetings.html#past-meeting-${encodeURIComponent(event.id)}`
+    : `${CLUB_URL}meetings.html`;
   return {
     '@context': 'https://schema.org', '@type': 'Event', name: event.title,
     startDate: event.start, endDate: event.end,
+    // Schema.org EventScheduled also describes an event that took place as scheduled.
     eventStatus: 'https://schema.org/EventScheduled',
-    ...(event.description ? { description: event.description } : {}),
+    ...((archived ? metadata.summary : event.description) ?
+      { description: archived ? metadata.summary : event.description } : {}),
     ...(place ? { location: place } : {}),
     organizer: { '@type': 'EducationalOrganization', '@id': `${CLUB_URL}#club` },
-    url: `${CLUB_URL}meetings.html`,
+    url: eventUrl,
+    ...(archived ? { '@id': eventUrl } : {}),
   };
 }
 
-function updateEventSchema(events) {
+function updateEventSchema(events, scope = 'upcoming') {
+  if (scope === 'past') pastSchemaEvents = events;
+  else upcomingSchemaEvents = events;
   document.querySelector('#calendar-event-schema')?.remove();
-  if (!events.length) return;
+  if (!upcomingSchemaEvents.length && !pastSchemaEvents.length) return;
   const script = document.createElement('script');
   script.id = 'calendar-event-schema';
   script.type = 'application/ld+json';
-  script.textContent = JSON.stringify(events.map(eventSchema));
+  script.textContent = JSON.stringify([
+    ...upcomingSchemaEvents.map(event => eventSchema(event)),
+    ...pastSchemaEvents.map(event => eventSchema(event, true)),
+  ]);
   document.head.append(script);
 }
 
-async function getEvents() {
-  const response = await fetch('/api/calendar-events', { headers: { Accept: 'application/json' } });
+async function getEvents(scope = 'upcoming') {
+  const path = scope === 'past' ? '/api/calendar-events?scope=past' : '/api/calendar-events';
+  const response = await fetch(path, { headers: { Accept: 'application/json' } });
   if (!response.ok) throw new Error('Calendar unavailable');
   const data = await response.json();
   if (!Array.isArray(data.events)) throw new Error('Invalid calendar response');
@@ -145,40 +161,78 @@ async function getEvents() {
     Number.isFinite(Date.parse(event.end)) && Date.parse(event.end) > Date.parse(event.start));
 }
 
-function renderHome(root, events) {
+export function renderArchive(root, events) {
+  root.replaceChildren();
+  const past = events.filter(event => event.status !== 'cancelled' &&
+    Number.isFinite(Date.parse(event.start)) && Number.isFinite(Date.parse(event.end)) &&
+    Date.parse(event.end) <= Date.now())
+    .sort((a, b) => Date.parse(b.start) - Date.parse(a.start)).slice(0, 16);
+  updateEventSchema(past, 'past');
+  if (!past.length) {
+    root.append(paragraph('لا توجد اجتماعات سابقة لعرضها حاليًا.', 'text-slate-600'));
+    return;
+  }
+  const grid = document.createElement('div');
+  grid.className = 'grid gap-4 sm:grid-cols-2 lg:grid-cols-3';
+  for (const event of past) {
+    const details = parseMeetingDescription(event.description);
+    const article = document.createElement('article');
+    article.id = `past-meeting-${encodeURIComponent(event.id)}`;
+    article.className = 'scroll-mt-24 rounded-2xl border border-slate-200 bg-white p-5 space-y-3 shadow-sm';
+    article.append(eventTitle(event, 'text-lg font-black text-loyal-blue leading-snug'));
+    const date = document.createElement('time');
+    date.dateTime = event.start;
+    date.textContent = formatEventTime(event);
+    date.className = 'block text-sm font-semibold text-slate-600';
+    article.append(date);
+    if (details.theme) article.append(paragraph(`محور الاجتماع: ${details.theme}`, 'text-sm font-bold text-true-maroon'));
+    if (details.summary) article.append(paragraph(details.summary, 'text-sm text-slate-700 whitespace-pre-line leading-relaxed'));
+    if (event.location) article.append(paragraph(event.location, 'text-sm text-slate-600'));
+    if (details.links.length) {
+      const links = document.createElement('div');
+      links.className = 'flex flex-wrap gap-3 text-sm font-bold';
+      for (const item of details.links) links.append(link(
+        item.platform === 'facebook' ? 'فيسبوك' : 'إنستغرام', item.href,
+        'text-loyal-blue underline hover:text-true-maroon', true));
+      article.append(links);
+    }
+    grid.append(article);
+  }
+  root.append(grid);
+}
+
+export function renderHome(root, events) {
   clearInterval(root._countdownInterval);
-  updateEventSchema(events.filter(item => Date.parse(item.end) > Date.now()));
+  updateEventSchema(events.filter(item => item.status !== 'cancelled' && Date.parse(item.start) > Date.now()));
   root.replaceChildren();
   const event = selectCurrentEvent(events);
   if (!event) {
     root.append(paragraph('لم يتم الإعلان عن موعد الاجتماع القادم بعد', 'font-bold text-loyal-blue'),
-      paragraph('نعقد اجتماعاتنا عادةً السبت الأول والثالث من كل شهر.', 'text-sm text-slate-600 mt-1'));
+      paragraph('نعقد اجتماعاتنا عادةً السبت الأول والثالث من كل شهر. تابع مجتمع واتساب لمعرفة المواعيد الجديدة.', 'text-sm text-slate-600 mt-1'));
     return;
   }
   root.append(paragraph('الاجتماع القادم', 'text-sm font-bold text-true-maroon'),
     paragraph(event.title, 'font-black text-loyal-blue text-lg mt-1'),
     paragraph(formatEventTime(event), 'text-sm text-slate-700 mt-1'));
-  if (event.location) root.append(paragraph(event.location, 'text-sm text-slate-600 mt-1'));
   const countdown = paragraph('', 'text-base font-black text-loyal-blue mt-2 tabular-nums');
   countdown.setAttribute('aria-hidden', 'true');
   root.append(countdown);
   const register = registrationButton(event);
   register.classList.add('mt-3', 'w-full');
   root.append(registrationCount(event), register);
+  if (event.location) root.append(paragraph(event.location, 'text-sm text-slate-600 mt-3'));
   const refresh = () => {
-    if (Date.now() >= Date.parse(event.end)) { renderHome(root, events); return; }
+    if (Date.now() >= Date.parse(event.start)) { renderHome(root, events); return; }
     countdown.textContent = countdownText(event);
   };
   refresh();
   root._countdownInterval = setInterval(refresh, 30000);
 }
 
-function eventActions(event, featured = false, includeCommunity = true) {
+function eventActions(event, featured = false) {
   const actions = document.createElement('div');
   actions.className = 'flex flex-wrap gap-3 pt-3 text-sm font-bold';
-  actions.append(registrationButton(event, featured));
-  if (includeCommunity) actions.append(link('انضم إلى مجتمع واتساب', COMMUNITY_URL,
-    'rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2.5', true));
+  if (featured) actions.append(registrationButton(event, true));
   actions.append(link('أضف إلى تقويم Google', googleCalendarUrl(event),
     featured ? 'rounded-xl bg-white text-loyal-blue hover:bg-loyal-blue-light px-4 py-2.5'
       : 'rounded-xl bg-loyal-blue hover:bg-loyal-blue-dark text-white px-4 py-2.5', true));
@@ -240,14 +294,9 @@ function renderFeaturedEvent(event, root, events) {
   article.append(timer, registrationCount(event), eventActions(event, true));
 
   const refresh = () => {
-    if (Date.now() >= Date.parse(event.end)) { renderMeetings(root, events); return; }
-    if (Date.now() >= Date.parse(event.start)) {
-      countdown.textContent = '';
-      ongoing.textContent = 'جارٍ الآن';
-    } else {
-      ongoing.textContent = '';
-      countdown.textContent = countdownText(event);
-    }
+    if (Date.now() >= Date.parse(event.start)) { renderMeetings(root, events); return; }
+    ongoing.textContent = '';
+    countdown.textContent = countdownText(event);
   };
   root._meetingsCountdown = setInterval(refresh, 30000);
   queueMicrotask(refresh);
@@ -287,7 +336,7 @@ function renderAgenda(events) {
     article.append(eventTitle(event, 'font-black text-loyal-blue text-lg'),
       paragraph(formatEventTime(event), 'text-slate-700 font-semibold mt-1'));
     if (event.location) article.append(paragraph(event.location, 'text-slate-600 text-sm mt-1'));
-    article.append(eventActions(event, false, false));
+    article.append(eventActions(event));
     item.append(article);
     list.append(item);
   }
@@ -435,10 +484,10 @@ function renderCalendar(events, root) {
   return section;
 }
 
-function renderMeetings(root, events) {
+export function renderMeetings(root, events) {
   clearInterval(root._meetingsCountdown);
   root.replaceChildren();
-  const upcoming = events.filter(event => Date.parse(event.end) > Date.now())
+  const upcoming = events.filter(event => event.status !== 'cancelled' && Date.parse(event.start) > Date.now())
     .sort((a, b) => Date.parse(a.start) - Date.parse(b.start));
   if (!upcoming.length) {
     const empty = document.createElement('div');
@@ -457,17 +506,21 @@ function renderMeetings(root, events) {
   updateEventSchema(upcoming);
 }
 
-async function init() {
+export async function init() {
   const home = document.querySelector('#next-meeting');
   const meetings = document.querySelector('#meetings-list');
-  if (!home && !meetings) return;
+  const archive = document.querySelector('#past-meetings-list');
+  if (!home && !meetings && !archive) return;
   try {
     const events = await getEvents();
     if (home) renderHome(home, events);
     if (meetings) renderMeetings(meetings, events);
   } catch {
-    const message = 'تعذر تحميل مواعيد الاجتماعات حالياً. نعقد اجتماعاتنا عادةً السبت الأول والثالث من كل شهر. يرجى التأكد من الموعد عبر واتساب.';
-    if (home) home.replaceChildren(paragraph(message, 'text-sm text-slate-700'));
+    const message = 'تعذر تحميل مواعيد الاجتماعات حاليًا. يرجى المحاولة لاحقًا، وتابع مجتمع واتساب لمعرفة آخر الإعلانات.';
+    if (home) {
+      clearInterval(home._countdownInterval);
+      home.replaceChildren(paragraph(message, 'text-sm text-slate-700'));
+    }
     if (meetings) {
       clearInterval(meetings._meetingsCountdown);
       const error = paragraph(message, 'text-slate-700');
@@ -478,10 +531,20 @@ async function init() {
     }
     updateEventSchema([]);
   }
+  if (archive) {
+    try {
+      renderArchive(archive, await getEvents('past'));
+    } catch {
+      updateEventSchema([], 'past');
+      const error = paragraph('تعذر تحميل الاجتماعات السابقة حاليًا. يرجى المحاولة لاحقًا.', 'text-slate-600');
+      error.setAttribute('role', 'status');
+      archive.replaceChildren(error);
+    }
+  }
 }
 
 if (typeof document !== 'undefined') {
   init();
   // Open tabs also pick up edited or cancelled events without a page reload.
-  setInterval(init, 300000);
+  setInterval(init, 120000);
 }

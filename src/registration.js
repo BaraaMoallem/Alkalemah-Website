@@ -1,12 +1,18 @@
 const counts = new Map();
 const revisions = new Map();
 
+export function registrationStatusText(count) {
+  if (count === 0) return 'التسجيل مفتوح الآن';
+  if (count < 5) return 'بدأ التسجيل للحضور';
+  return `${new Intl.NumberFormat('ar-EG').format(count)} مسجلاً حتى الآن`;
+}
+
 export function updateRegistrationCount(eventId, count) {
   counts.set(eventId, count);
   revisions.set(eventId, (revisions.get(eventId) || 0) + 1);
   for (const element of document.querySelectorAll('[data-registration-count]')) {
     if (element.dataset.registrationCount === eventId) {
-      element.textContent = `عدد المسجلين: ${new Intl.NumberFormat('ar-EG').format(count)}`;
+      element.textContent = registrationStatusText(count);
     }
   }
 }
@@ -18,8 +24,8 @@ export function registrationCount(event) {
   count.setAttribute('aria-live', 'polite');
   const known = counts.get(event.id);
   const revision = revisions.get(event.id) || 0;
-  count.textContent = known === undefined ? 'عدد المسجلين: جارٍ التحميل...'
-    : `عدد المسجلين: ${new Intl.NumberFormat('ar-EG').format(known)}`;
+  count.textContent = known === undefined ? 'جارٍ تحميل حالة التسجيل...'
+    : registrationStatusText(known);
   fetch(`/api/registration-count?eventId=${encodeURIComponent(event.id)}`, {
     headers: { Accept: 'application/json' }, cache: 'no-store',
   }).then(async response => {
@@ -28,7 +34,7 @@ export function registrationCount(event) {
     if (data.eventId !== event.id || !Number.isSafeInteger(data.count) || data.count < 0) throw new Error('Invalid count');
     if ((revisions.get(event.id) || 0) === revision) updateRegistrationCount(event.id, data.count);
   }).catch(() => {
-    if (!counts.has(event.id)) count.textContent = 'تعذر عرض عدد المسجلين حاليًا';
+    if (!counts.has(event.id)) count.textContent = 'تعذر عرض حالة التسجيل حاليًا';
   });
   return count;
 }
@@ -110,6 +116,20 @@ function openRegistration(event, trigger) {
   let pending = false;
   dialog.addEventListener('cancel', e => { if (pending) e.preventDefault(); });
   dialog.addEventListener('click', e => { if (e.target === dialog && !pending) dialog.close(); });
+  dialog.addEventListener('keydown', e => {
+    if (e.key !== 'Tab') return;
+    const focusable = [...Object.values(inputs), submit, close].filter(item => item.isConnected && !item.disabled);
+    if (!focusable.length) { e.preventDefault(); return; }
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (e.shiftKey && (document.activeElement === first || !dialog.contains(document.activeElement))) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && (document.activeElement === last || !dialog.contains(document.activeElement))) {
+      e.preventDefault();
+      first.focus();
+    }
+  });
   form.addEventListener('submit', async e => {
     e.preventDefault();
     if (pending) return;
@@ -142,7 +162,7 @@ function openRegistration(event, trigger) {
       submit.remove();
       if (data.count === null) refreshCount(event);
     } catch (error) {
-      status.textContent = error.message?.startsWith('لم يعد') || error.message?.startsWith('محاولات') ||
+      status.textContent = error.message?.startsWith('التسجيل متاح') || error.message?.startsWith('لم يعد') || error.message?.startsWith('محاولات') ||
         error.message?.startsWith('يرجى مراجعة') ? error.message : registrationErrorMessage();
       submit.disabled = false;
     } finally {
@@ -155,6 +175,7 @@ function openRegistration(event, trigger) {
 }
 
 function registrationErrorMessage(code) {
+  if (code === 'REGISTRATION_NOT_OPEN') return 'التسجيل متاح حاليًا للاجتماع القادم فقط.';
   if (code === 'INVALID_EVENT') return 'لم يعد هذا الاجتماع متاحًا للتسجيل. يرجى تحديث الصفحة.';
   if (code === 'RATE_LIMITED') return 'محاولات كثيرة. يرجى الانتظار قليلًا ثم المحاولة مجددًا.';
   if (code === 'INVALID_SUBMISSION') return 'يرجى مراجعة البيانات المدخلة والمحاولة مجددًا.';
