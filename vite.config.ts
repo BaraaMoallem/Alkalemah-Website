@@ -11,6 +11,7 @@ export default defineConfig({
         meetings: 'meetings.html',
         location: 'location.html',
         contact: 'contact.html',
+        faq: 'faq.html',
       },
     },
   },
