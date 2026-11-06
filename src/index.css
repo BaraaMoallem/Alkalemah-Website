@@ -32,14 +32,14 @@ dialog.registration-modal::backdrop {
   --color-cool-gray-light: #f4f6f6;
   --color-happy-yellow: #f2df74;
   --color-happy-yellow-dark: #d8c24f;
-  --font-sans: "Cairo", "Source Sans 3", sans-serif;
+  --font-sans: "Cairo", sans-serif;
   --font-cairo: "Cairo", sans-serif;
   --font-montserrat: "Montserrat", sans-serif;
 }
 
 body { font-family: "Cairo", sans-serif; }
 .heading-font { font-family: "Cairo", "Montserrat", sans-serif; }
-.en-font { font-family: "Montserrat", "Source Sans 3", sans-serif; }
+.en-font { font-family: "Montserrat", sans-serif; }
 
 :focus-visible {
   outline: 3px solid #f2df74;
@@ -80,3 +80,52 @@ body { font-family: "Cairo", sans-serif; }
 .floating-whatsapp:hover { background: #047857; }
 .floating-whatsapp svg { width: 1.5rem; height: 1.5rem; }
 footer { padding-bottom: max(4rem, env(safe-area-inset-bottom)); }
+
+/* Readability: slightly larger small text */
+.text-xs { font-size: 0.8125rem; }
+.text-sm { font-size: 0.9375rem; }
+.text-\[10px\] { font-size: 0.75rem; }
+.text-\[11px\] { font-size: 0.8125rem; }
+
+/* Sticky mobile action bar */
+.mobile-action-bar {
+  position: fixed;
+  z-index: 50;
+  inset-inline: 0;
+  bottom: 0;
+  display: flex;
+  gap: .5rem;
+  padding: .625rem max(.75rem, env(safe-area-inset-right)) max(.625rem, env(safe-area-inset-bottom)) max(.75rem, env(safe-area-inset-left));
+  background: rgb(255 255 255 / 96%);
+  border-top: 1px solid #e2e8f0;
+  box-shadow: 0 -4px 16px #00273d1f;
+  backdrop-filter: blur(8px);
+}
+.mobile-action-bar a {
+  display: flex;
+  flex: 1;
+  min-height: 2.75rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: .75rem;
+  font-weight: 800;
+  font-size: .9375rem;
+}
+.mobile-action-bar__primary { background: #f2df74; color: #00273d; }
+.mobile-action-bar__secondary { background: #059669; color: #fff; }
+@media (min-width: 1024px) { .mobile-action-bar { display: none; } }
+@media (max-width: 1023.98px) {
+  .floating-whatsapp { display: none; }
+  footer { padding-bottom: 6rem; }
+}
+
+/* Respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .hover\:scale-105:hover, .group:hover .group-hover\:scale-105 { transform: none !important; }
+}

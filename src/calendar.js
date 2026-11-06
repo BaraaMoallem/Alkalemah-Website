@@ -411,7 +411,7 @@ function renderAgenda(events) {
   return section;
 }
 
-function renderCalendar(events, root) {
+function renderCalendar(events, root, agendaEvents = events) {
   const byDate = new Map();
   for (const event of events) {
     const key = cairoDateKey(event.start);
@@ -451,10 +451,10 @@ function renderCalendar(events, root) {
   grid.className = 'grid grid-cols-7 gap-1 sm:gap-1.5 text-center';
   calendar.append(controls, grid);
   const detail = document.createElement('div');
-  detail.className = 'rounded-2xl border border-loyal-blue/15 bg-loyal-blue-light p-5 sm:p-6';
+  detail.className = 'rounded-2xl border border-loyal-blue/15 bg-loyal-blue-light p-5 sm:p-6 lg:self-start';
   detail.setAttribute('aria-live', 'polite');
   layout.append(calendar, detail);
-  section.append(heading, layout, renderAgenda(events));
+  section.append(heading, layout, renderAgenda(agendaEvents));
 
   function paintDetails() {
     detail.replaceChildren();
@@ -569,7 +569,7 @@ export function renderMeetings(root, events) {
     return;
   }
   root.append(renderFeaturedEvent(upcoming[0], root, events));
-  if (upcoming.length > 1) root.append(renderCalendar(upcoming.slice(1), root));
+  if (upcoming.length > 1) root.append(renderCalendar(upcoming, root, upcoming.slice(1)));
   updateEventSchema(upcoming);
 }
 
