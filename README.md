@@ -20,7 +20,7 @@ Meeting events should have a timed start and end (not an all-day entry), a title
 - For a live Calendar API test, link the Vercel project, configure Development environment variables, and run `vercel dev`. Open `http://localhost:3000/api/calendar-events` to check that it returns `{ "events": [...] }`, then inspect the homepage and `/meetings.html`. Plain `npm run dev` serves the pages but does not run the serverless function, so it displays the error fallback.
 - For failure testing, run the endpoint without the environment variables or block the API request. Empty and timed-event scenarios are covered by the automated mock tests.
 
-Events are represented as JSON-LD in the browser after the calendar loads. Static crawlers may not see those event records, and the shared `meetings.html` URL is not an individual event URL. Full event rich-result eligibility would require stable individual event pages with server-rendered event data; this site does not add a new routing architecture solely for that purpose.
+Events are pre-rendered into the HTML and represented as Schema.org `Event` JSON-LD both on the server (`/api/render-page` via `middleware.js` and at build time in `vite.config.ts`) and in the browser (`src/calendar.js`), alongside static `EventSeries` and `EducationalOrganization` structured data on `meetings.html`.
 
 ## Meeting registration
 

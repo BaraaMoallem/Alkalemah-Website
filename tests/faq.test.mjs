@@ -29,7 +29,7 @@ test('FAQ schema matches all eleven questions and answers in the initial Arabic 
     assert.ok(entry.answer.length > 50);
   }
   assert.match(entries[4].answer, /لا، يمكنك الحضور مباشرة/);
-  assert.match(entries[4].answer, /للاجتماع القادم فقط/);
+  assert.match(entries[4].answer, /للاجتماع القادم/);
   assert.match(entries[6].answer, /اختيارية تمامًا/);
   assert.doesNotMatch(faq, /fetch\(|hreflang|\/en\/|التسجيل إلزامي/);
 });

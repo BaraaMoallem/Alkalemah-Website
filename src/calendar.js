@@ -18,7 +18,7 @@ export function formatEventTime(event) {
   return `${formatEventDate(event)}، ${formatClockRange(event)}`;
 }
 
-function formatEventDate(event) {
+export function formatEventDate(event) {
   return new Intl.DateTimeFormat('ar-EG', {
     timeZone: ZONE, weekday: 'long', day: 'numeric', month: 'long', year: 'numeric',
   }).format(new Date(event.start));
@@ -29,7 +29,7 @@ function metadataFor(event) {
   return meetingMetadata.get(event);
 }
 
-function formatClockRange(event) {
+export function formatClockRange(event) {
   const time = value => new Intl.DateTimeFormat('ar-EG', {
     timeZone: ZONE, hour: 'numeric', minute: '2-digit', hour12: true,
   }).format(new Date(value));
@@ -122,25 +122,66 @@ export function countdownText(event, now = Date.now()) {
   return `${days} أيام : ${String(hours).padStart(2, '0')} ساعات : ${String(minutes).padStart(2, '0')} دقيقة`;
 }
 
-function eventSchema(event, archived = false) {
-  const place = event.location ? {
-    '@type': 'Place', name: event.location,
-  } : undefined;
+export function eventSchema(event, archived = false) {
+  const locationName = event.location?.trim() || 'eSpaces - شارع الثورة، مصر الجديدة، القاهرة';
+  const place = {
+    '@type': 'Place',
+    name: locationName,
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: event.location?.trim() || 'eSpaces - شارع الثورة (داخل مول The Hive)',
+      addressLocality: 'مصر الجديدة',
+      addressRegion: 'القاهرة',
+      addressCountry: 'EG',
+    },
+  };
   const metadata = metadataFor(event);
   const eventUrl = archived
     ? `${CLUB_URL}meetings.html#past-meeting-${encodeURIComponent(event.id)}`
-    : `${CLUB_URL}meetings.html`;
+    : `${CLUB_URL}meetings.html#meeting-${encodeURIComponent(event.id)}`;
+  const upcomingDescription = [
+    metadata.theme ? `محور الاجتماع: ${metadata.theme}` : '',
+    metadata.summary,
+  ].filter(Boolean).join(' — ') || event.description?.trim() ||
+    'اجتماع تدريبي لنادي الكلمة توستماسترز لتطوير مهارات الخطابة والتواصل والقيادة باللغة العربية في القاهرة.';
+  const description = archived ? metadata.summary : upcomingDescription;
   return {
-    '@context': 'https://schema.org', '@type': 'Event', name: event.title,
-    startDate: event.start, endDate: event.end,
+    '@context': 'https://schema.org',
+    '@type': 'Event',
+    name: event.title,
+    startDate: event.start,
+    endDate: event.end,
     // Schema.org EventScheduled also describes an event that took place as scheduled.
     eventStatus: 'https://schema.org/EventScheduled',
-    ...((archived ? metadata.summary : event.description) ?
-      { description: archived ? metadata.summary : event.description } : {}),
-    ...(place ? { location: place } : {}),
-    organizer: { '@type': 'EducationalOrganization', '@id': `${CLUB_URL}#club` },
+    eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+    inLanguage: 'ar',
+    image: [
+      `${CLUB_URL}assets/Toastmasters_Unofficial/og-image.jpg`,
+      `${CLUB_URL}assets/images/meeting_photo.webp`,
+    ],
+    ...(description ? { description } : {}),
+    location: place,
+    organizer: {
+      '@type': 'EducationalOrganization',
+      '@id': `${CLUB_URL}#club`,
+      name: 'نادي الكلمة توستماسترز',
+      url: CLUB_URL,
+    },
+    performer: {
+      '@type': 'Organization',
+      '@id': `${CLUB_URL}#club`,
+      name: 'نادي الكلمة توستماسترز',
+    },
+    offers: {
+      '@type': 'Offer',
+      url: `${CLUB_URL}meetings.html`,
+      price: '150',
+      priceCurrency: 'EGP',
+      availability: archived ? 'https://schema.org/SoldOut' : 'https://schema.org/InStock',
+      validFrom: event.start,
+    },
     url: eventUrl,
-    ...(archived ? { '@id': eventUrl } : {}),
+    '@id': eventUrl,
   };
 }
 
@@ -298,6 +339,7 @@ function socialActions(items, className) {
 
 function renderFeaturedEvent(event, root, events) {
   const article = document.createElement('article');
+  article.id = `meeting-${encodeURIComponent(event.id)}`;
   article.className = 'rounded-3xl bg-gradient-to-br from-loyal-blue to-loyal-blue-dark border-t-4 border-happy-yellow text-white shadow-lg p-6 sm:p-8 space-y-4';
   const label = paragraph('الاجتماع القادم', 'inline-block rounded-full bg-white/10 px-3 py-1 text-happy-yellow font-black text-sm');
   const title = document.createElement('h2');
@@ -357,6 +399,7 @@ function renderAgenda(events) {
     const item = document.createElement('li');
     item.className = 'p-4 sm:p-5';
     const article = document.createElement('article');
+    article.id = `meeting-${encodeURIComponent(event.id)}`;
     article.append(eventTitle(event, 'font-black text-loyal-blue text-lg'),
       paragraph(formatEventTime(event), 'text-slate-700 font-semibold mt-1'));
     if (event.location) article.append(paragraph(event.location, 'text-slate-600 text-sm mt-1'));
