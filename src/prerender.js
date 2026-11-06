@@ -192,7 +192,7 @@ export function buildEventSchemaScript(upcomingEvents = [], pastEvents = [], now
 
 function injectSchemaIntoHead(html, schemaScript) {
   const withoutExisting = html.replace(
-    /\s*<script id="calendar-event-schema" type="application\/ld\+json">[\s\S]*?<\/script>/g,
+    /[ \t]*<script id="calendar-event-schema" type="application\/ld\+json">[\s\S]*?<\/script>\r?\n?/g,
     ''
   );
   if (!schemaScript) return withoutExisting;
