@@ -4,7 +4,7 @@ const revisions = new Map();
 export function registrationStatusText(count) {
   if (count === 0) return 'التسجيل مفتوح الآن';
   if (count < 5) return 'بدأ التسجيل للحضور';
-  return `${new Intl.NumberFormat('ar-EG').format(count)} مسجلاً حتى الآن`;
+  return `${new Intl.NumberFormat('ar-EG-u-nu-latn').format(count)} مسجلاً حتى الآن`;
 }
 
 export function updateRegistrationCount(eventId, count) {

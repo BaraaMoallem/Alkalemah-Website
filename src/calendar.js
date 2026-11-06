@@ -19,7 +19,7 @@ export function formatEventTime(event) {
 }
 
 export function formatEventDate(event) {
-  return new Intl.DateTimeFormat('ar-EG', {
+  return new Intl.DateTimeFormat('ar-EG-u-nu-latn', {
     timeZone: ZONE, weekday: 'long', day: 'numeric', month: 'long', year: 'numeric',
   }).format(new Date(event.start));
 }
@@ -30,7 +30,7 @@ function metadataFor(event) {
 }
 
 export function formatClockRange(event) {
-  const time = value => new Intl.DateTimeFormat('ar-EG', {
+  const time = value => new Intl.DateTimeFormat('ar-EG-u-nu-latn', {
     timeZone: ZONE, hour: 'numeric', minute: '2-digit', hour12: true,
   }).format(new Date(value));
   return `من ${time(event.start)} إلى ${time(event.end)} بتوقيت القاهرة`;
@@ -371,12 +371,12 @@ function renderFeaturedEvent(event, root, events) {
 
 function monthLabel(monthKey) {
   const [year, month] = monthKey.split('-').map(Number);
-  return new Intl.DateTimeFormat('ar-EG', { timeZone: 'UTC', month: 'long', year: 'numeric' })
+  return new Intl.DateTimeFormat('ar-EG-u-nu-latn', { timeZone: 'UTC', month: 'long', year: 'numeric' })
     .format(new Date(Date.UTC(year, month - 1, 1)));
 }
 
 function fullDateLabel(dateKey) {
-  return new Intl.DateTimeFormat('ar-EG', {
+  return new Intl.DateTimeFormat('ar-EG-u-nu-latn', {
     timeZone: 'UTC', weekday: 'long', day: 'numeric', month: 'long', year: 'numeric',
   }).format(new Date(`${dateKey}T12:00:00Z`));
 }
@@ -516,7 +516,7 @@ function renderCalendar(events, root) {
       const matching = byDate.get(key);
       if (!matching) {
         const number = document.createElement('span');
-        number.textContent = new Intl.NumberFormat('ar-EG').format(day);
+        number.textContent = new Intl.NumberFormat('ar-EG-u-nu-latn').format(day);
         number.className = 'min-h-14 flex items-center justify-center text-slate-500';
         grid.append(number);
         continue;
@@ -528,9 +528,9 @@ function renderCalendar(events, root) {
         : matching.length === 2 ? 'اجتماعان' : `${matching.length} اجتماعات`;
       button.setAttribute('aria-label', `${fullDateLabel(key)}، ${count}، ${matching.map(event => event.title).join('، ')}`);
       const dayNumber = document.createElement('span');
-      dayNumber.textContent = new Intl.NumberFormat('ar-EG').format(day);
+      dayNumber.textContent = new Intl.NumberFormat('ar-EG-u-nu-latn').format(day);
       const marker = document.createElement('span');
-      marker.textContent = matching.length === 1 ? '●' : new Intl.NumberFormat('ar-EG').format(matching.length);
+      marker.textContent = matching.length === 1 ? '●' : new Intl.NumberFormat('ar-EG-u-nu-latn').format(matching.length);
       marker.className = 'text-xs leading-none';
       button.append(dayNumber, marker);
       button.addEventListener('click', () => {

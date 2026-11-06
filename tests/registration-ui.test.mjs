@@ -89,7 +89,7 @@ test('registration modal is keyboard operable, mobile sized, prevents rapid dupl
     assert.equal(submit.disabled, true);
     resolveRegistration({ ok: true, json: async () => ({ ok: true, code: 'REGISTERED', alreadyRegistered: false, count: 5 }) });
     await new Promise(resolve => setImmediate(resolve));
-    assert.equal(count.textContent, '٥ مسجلاً حتى الآن');
+    assert.equal(count.textContent, '5 مسجلاً حتى الآن');
     assert.match(parts.find(item => item.role === 'alert').textContent, /تم تسجيل حضورك بنجاح/);
     dialog.fire('cancel');
     assert.equal(dialog.isConnected, false);
@@ -139,9 +139,9 @@ test('registration social proof hides low exact counts and displays real counts 
   assert.equal(registrationStatusText(0), 'التسجيل مفتوح الآن');
   assert.equal(registrationStatusText(1), 'بدأ التسجيل للحضور');
   assert.equal(registrationStatusText(4), 'بدأ التسجيل للحضور');
-  assert.equal(registrationStatusText(5), '٥ مسجلاً حتى الآن');
-  assert.equal(registrationStatusText(8), '٨ مسجلاً حتى الآن');
-  assert.equal(registrationStatusText(14), '١٤ مسجلاً حتى الآن');
+  assert.equal(registrationStatusText(5), '5 مسجلاً حتى الآن');
+  assert.equal(registrationStatusText(8), '8 مسجلاً حتى الآن');
+  assert.equal(registrationStatusText(14), '14 مسجلاً حتى الآن');
 });
 
 test('dialog CSS centers independently of RTL and stays within a mobile viewport', () => {
