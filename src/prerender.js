@@ -8,6 +8,11 @@ import {
 } from './calendar.js';
 
 const COMMUNITY_URL = 'https://chat.whatsapp.com/JutO99rTDXVLIHSwLbWPZO';
+const DEFAULT_VENUE = 'eSpaces - شارع الثورة (داخل مول The Hive)، مصر الجديدة، القاهرة';
+
+function eventLocationLabel(event) {
+  return (event?.location || DEFAULT_VENUE).trim();
+}
 
 export function escapeHtml(value) {
   return String(value ?? '')
@@ -67,10 +72,12 @@ function renderEventActionsHtml(event, featured = false) {
   const mapClass = featured
     ? 'rounded-xl text-white hover:underline px-2 py-2.5'
     : 'rounded-xl text-loyal-blue hover:underline px-2 py-2.5';
-  const mapLink = event.location
-    ? `<a href="https://www.google.com/maps/search/?api=1&amp;query=${encodeURIComponent(event.location)}" target="_blank" rel="noopener noreferrer" class="${mapClass}">اعرض هذا المكان على الخريطة</a>`
+  const locationQuery = eventLocationLabel(event);
+  const registrationBadge = featured
+    ? '<span class="rounded-xl bg-happy-yellow text-loyal-blue px-4 py-2.5 font-black">التسجيل مفتوح الآن للضيوف</span>'
     : '';
-  return `<div class="flex flex-wrap gap-3 pt-3 text-sm font-bold"><a href="${escapeHtml(googleCalendarUrl(event))}" target="_blank" rel="noopener noreferrer" class="${calendarClass}">أضف إلى تقويم Google</a>${mapLink}</div>`;
+  const mapLink = `<a href="https://www.google.com/maps/search/?api=1&amp;query=${encodeURIComponent(locationQuery)}" target="_blank" rel="noopener noreferrer" class="${mapClass}">اعرض هذا المكان على الخريطة</a>`;
+  return `<div class="flex flex-wrap gap-3 pt-3 text-sm font-bold">${registrationBadge}<a href="${escapeHtml(googleCalendarUrl(event))}" target="_blank" rel="noopener noreferrer" class="${calendarClass}">أضف إلى تقويم Google</a>${mapLink}</div>`;
 }
 
 export function renderUpcomingMeetingsHtml(events = [], now = Date.now()) {
@@ -95,7 +102,7 @@ export function renderUpcomingMeetingsHtml(events = [], now = Date.now()) {
     '<p class="inline-block rounded-full bg-white/10 px-3 py-1 text-happy-yellow font-black text-sm">الاجتماع القادم</p>',
     `<h2 dir="auto" class="text-2xl sm:text-3xl font-black heading-font leading-snug">${escapeHtml(featured.title)}</h2>`,
     `<p class="font-bold text-white text-base sm:text-lg"><time datetime="${escapeHtml(featured.start)}">${escapeHtml(formatEventTime(featured))}</time></p>`,
-    featured.location ? `<p class="text-white/90">${escapeHtml(featured.location)}</p>` : '',
+    `<p class="text-white/90">المكان: ${escapeHtml(eventLocationLabel(featured))}</p>`,
     renderEventDescriptionHtml(featured, 'text-white/90 whitespace-pre-line leading-relaxed'),
     renderEventActionsHtml(featured, true),
     '</article>',
@@ -110,7 +117,7 @@ export function renderUpcomingMeetingsHtml(events = [], now = Date.now()) {
       `<article id="${escapeHtml(id)}">`,
       `<h3 dir="auto" class="font-black text-loyal-blue text-lg">${escapeHtml(event.title)}</h3>`,
       `<p class="text-slate-700 font-semibold mt-1"><time datetime="${escapeHtml(event.start)}">${escapeHtml(formatEventTime(event))}</time></p>`,
-      event.location ? `<p class="text-slate-600 text-sm mt-1">${escapeHtml(event.location)}</p>` : '',
+      `<p class="text-slate-600 text-sm mt-1">المكان: ${escapeHtml(eventLocationLabel(event))}</p>`,
       renderEventActionsHtml(event, false),
       '</article>',
       '</li>',
@@ -169,7 +176,8 @@ export function renderHomeNextMeetingHtml(events = [], now = Date.now()) {
     `<p class="font-black text-loyal-blue text-lg mt-1">${escapeHtml(event.title)}</p>`,
     `<p class="text-sm text-slate-700 mt-1"><time datetime="${escapeHtml(event.start)}">${escapeHtml(formatEventTime(event))}</time></p>`,
     details.theme ? `<p class="text-sm font-bold text-true-maroon mt-2">محور الاجتماع: ${escapeHtml(details.theme)}</p>` : '',
-    event.location ? `<p class="text-sm text-slate-600 mt-3">${escapeHtml(event.location)}</p>` : '',
+    `<p class="text-sm text-slate-600 mt-3">المكان: ${escapeHtml(eventLocationLabel(event))}</p>`,
+    '<p class="text-xs font-bold text-emerald-800 mt-2">التسجيل مفتوح الآن للضيوف</p>',
   ].filter(Boolean).join('');
 }
 
