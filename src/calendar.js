@@ -454,7 +454,8 @@ function renderCalendar(events, root) {
   detail.className = 'rounded-2xl border border-loyal-blue/15 bg-loyal-blue-light p-5 sm:p-6';
   detail.setAttribute('aria-live', 'polite');
   layout.append(calendar, detail);
-  section.append(heading, layout, renderAgenda(events));
+  section.append(heading, layout);
+  if (events.length > 1) section.append(renderAgenda(events.slice(1)));
 
   function paintDetails() {
     detail.replaceChildren();
@@ -569,7 +570,7 @@ export function renderMeetings(root, events) {
     return;
   }
   root.append(renderFeaturedEvent(upcoming[0], root, events));
-  if (upcoming.length > 1) root.append(renderCalendar(upcoming.slice(1), root));
+  root.append(renderCalendar(upcoming, root));
   updateEventSchema(upcoming);
 }
 
